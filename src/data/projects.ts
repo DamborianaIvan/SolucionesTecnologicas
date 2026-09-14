@@ -53,37 +53,60 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "the-pet-feeder",
-    title: "ThePetFeeder Site",
+    slug: "the-pet-feeder-webapp",
+    title: "ThePetFeeder WebApp",
     description:
-      "WebApp para controlar y gestionar remotamente el dispositivo IoT ThePetFeeder.",
-    image: "/art/the-pet-feeder.png",
-    tags: ["IoT", "Web"],
+      "Aplicación web desarrollada para gestionar y controlar remotamente el dispositivo IoT ThePetFeeder.",
+    image: "/art/the-pet-feeder-webapp.png",
+    tags: ["React", "TypeScript", "Vite", "Web", "IoT"],
     type: "app",
-    href: "https://the-pet-feeder.vercel.app",
-    external: true,
-    cta: "Abrir aplicación",
+    href: "/proyectos/the-pet-feeder-webapp",
+    external: false,
+    cta: "Ver proyecto",
 
     problem:
-      "Controlar un dispositivo IoT de alimentación para mascotas de forma remota requiere una interfaz que permita gestionar su funcionamiento sin necesidad de interactuar físicamente con el equipo.",
+      "ThePetFeeder necesita una interfaz que permita al usuario interactuar con el dispositivo de forma sencilla, consultar su estado y gestionar sus funciones sin necesidad de acceder físicamente al hardware.",
 
     solution:
-      "ThePetFeeder incorpora una WebApp desarrollada específicamente para controlar y gestionar remotamente el dispositivo IoT, conectando la experiencia de usuario con el alimentador inteligente.",
+      "Se desarrolló una WebApp específica para ThePetFeeder que funciona como interfaz de interacción entre el usuario y el dispositivo IoT, permitiendo gestionar sus funciones de forma remota desde una aplicación web.",
 
     operation:
-      "El usuario accede a la WebApp y utiliza su interfaz para interactuar remotamente con el dispositivo ThePetFeeder.",
+      "El usuario accede a la WebApp mediante autenticación y desde su panel puede interactuar con las funcionalidades disponibles de ThePetFeeder. La aplicación actúa como la capa de usuario del sistema IoT.",
+
+    technologies: ["React", "TypeScript", "Vite", "HTML", "CSS", "IoT"],
 
     features: [
-      "Control remoto del dispositivo IoT",
-      "Interfaz web de gestión",
-      "Acceso mediante autenticación",
-      "Integración con ThePetFeeder",
+      "Autenticación de usuarios",
+      "Panel de control del dispositivo",
+      "Gestión remota de ThePetFeeder",
+      "Visualización del estado del dispositivo",
+      "Interfaz web responsive",
+      "Integración con el sistema ThePetFeeder",
+    ],
+
+    gallery: [
+      {
+        src: "/art/the-pet-feeder-webapp-login.png",
+        alt: "Pantalla de inicio de sesión de ThePetFeeder WebApp",
+      },
+      {
+        src: "/art/the-pet-feeder-webapp-dashboard.png",
+        alt: "Panel principal de ThePetFeeder WebApp",
+      },
+      {
+        src: "/art/the-pet-feeder-webapp-control.png",
+        alt: "Panel de control remoto de ThePetFeeder",
+      },
     ],
 
     links: [
       {
-        label: "Abrir ThePetFeeder",
-        href: "https://the-pet-feeder.vercel.app",
+        label: "Abrir WebApp",
+        href: "https://the-pet-feeder.vercel.app/login",
+      },
+      {
+        label: "Ver repositorio",
+        href: "https://github.com/DamborianaIvan/ThePetFeeder",
       },
     ],
   },
@@ -138,15 +161,82 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "petfeeder",
-    title: "PetFeeder",
-    description: "Alimentador inteligente para mascotas.",
-    image: "/art/petfeeder.png",
-    tags: ["IoT", "Hardware", "Firmware", "Web"],
+    slug: "the-pet-feeder",
+    title: "ThePetFeeder",
+    description:
+      "Sistema IoT de alimentación inteligente para mascotas, diseñado para automatizar y gestionar la alimentación de forma remota.",
+    image: "/art/petfeeder.svg",
+    tags: ["IoT", "Hardware", "Firmware", "Electrónica", "Web"],
     type: "project",
-    href: "/proyectos/petfeeder",
+    href: "/proyectos/the-pet-feeder",
     external: false,
-    cta: "Abrir aplicación",
+    cta: "Ver proyecto",
+
+    problem:
+      "La alimentación de una mascota puede requerir supervisión y regularidad, especialmente cuando el usuario no se encuentra en el hogar. Esto plantea la necesidad de automatizar el proceso y disponer de mecanismos para supervisar y controlar el dispositivo de forma remota.",
+
+    solution:
+      "ThePetFeeder es un sistema IoT desarrollado para automatizar la alimentación de mascotas mediante un dispositivo físico conectado, firmware de control y una plataforma web que permite gestionar y supervisar su funcionamiento.",
+
+    operation:
+      "El dispositivo ejecuta las tareas de alimentación programadas y puede interactuar con el usuario mediante su sistema de control. La arquitectura integra hardware, firmware y conectividad IoT, mientras que la WebApp permite gestionar el dispositivo remotamente.",
+
+    technologies: [
+      "IoT",
+      "Electrónica",
+      "Microcontroladores",
+      "Firmware",
+      "C++",
+      "Web",
+      "React",
+      "TypeScript",
+    ],
+
+    features: [
+      "Alimentación automatizada",
+      "Control mediante hardware",
+      "Programación de alimentación",
+      "Conectividad IoT",
+      "Monitoreo del dispositivo",
+      "Control remoto",
+      "Firmware propio",
+      "Integración con WebApp",
+      "Arquitectura hardware + software",
+    ],
+
+    gallery: [
+      {
+        src: "/art/the-pet-feeder-device.png",
+        alt: "Dispositivo físico ThePetFeeder",
+      },
+      {
+        src: "/art/the-pet-feeder-hardware.png",
+        alt: "Hardware y componentes electrónicos de ThePetFeeder",
+      },
+      {
+        src: "/art/the-pet-feeder-firmware.png",
+        alt: "Sistema de firmware de ThePetFeeder",
+      },
+      {
+        src: "/art/the-pet-feeder-system.png",
+        alt: "Arquitectura general del sistema ThePetFeeder",
+      },
+    ],
+
+    links: [
+      {
+        label: "Ver WebApp",
+        href: "/proyectos/the-pet-feeder-webapp",
+      },
+      {
+        label: "Abrir WebApp",
+        href: "https://the-pet-feeder.vercel.app/login",
+      },
+      {
+        label: "Ver repositorio",
+        href: "https://github.com/DamborianaIvan/ThePetFeeder",
+      },
+    ],
   },
   {
     slug: "smart-access",
