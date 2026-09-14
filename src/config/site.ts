@@ -9,11 +9,11 @@ export const site: {
   apps: { stCommand: string | null };
   aboutPhoto: string | null;
 } = {
-  name: "ST — Soluciones Tecnológicas",
+  name: "Wuidevs — Soluciones Tecnológicas",
   description: "Informática, desarrollo e IoT para resolver problemas reales.",
   email: null, // PENDIENTE: correo oficial
   whatsapp: null, // PENDIENTE: número internacional, solo dígitos
   socials: { Instagram: null, LinkedIn: null, GitHub: null },
   apps: { stCommand: null },
-  aboutPhoto: null, // PENDIENTE: fotografía real del espacio ST
+  aboutPhoto: null, // PENDIENTE: fotografía real del espacio Wuidevs
 };
