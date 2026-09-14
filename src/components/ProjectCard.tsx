@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { Project } from "../data/projects";
-import "./ProjectCard.css";
 
 export type ProjectCardProps = Pick<
   Project,
