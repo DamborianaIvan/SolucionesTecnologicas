@@ -20,39 +20,6 @@ export interface Project {
 }
 export const projects: Project[] = [
   {
-    slug: "petfeeder",
-    title: "PetFeeder",
-    description: "Alimentador inteligente para mascotas.",
-    image: "/art/petfeeder.svg",
-    tags: ["IoT", "Hardware", "Firmware", "Web"],
-    type: "project",
-    href: "/proyectos/petfeeder",
-    external: false,
-    cta: "Ver proyecto",
-  },
-  {
-    slug: "smart-access",
-    title: "Smart Access",
-    description: "Sistema inteligente de control de acceso.",
-    image: "/art/smart-access.svg",
-    tags: ["IoT", "Electrónica", "Software"],
-    type: "project",
-    href: "/proyectos/smart-access",
-    external: false,
-    cta: "Ver proyecto",
-  },
-  {
-    slug: "st-command",
-    title: "ST Command",
-    description: "Control inteligente mediante comandos.",
-    image: "/art/st-command.svg",
-    tags: ["IA", "Software", "Automatización"],
-    type: "app",
-    href: site.apps.stCommand,
-    external: true,
-    cta: "Abrir aplicación",
-  },
-  {
     slug: "poker-study",
     title: "Poker Study Site",
     description: "Biblioteca de estudio de poker para equipos y jugadores.",
@@ -61,7 +28,7 @@ export const projects: Project[] = [
     type: "app",
     href: "https://poker-study-eight.vercel.app/",
     external: true,
-    cta: "Visitar proyecto",
+    cta: "Abrir aplicación",
 
     problem:
       "Un equipo de poker necesita organizar y centralizar material de estudio para poder acceder fácilmente a sus recursos.",
@@ -119,5 +86,88 @@ export const projects: Project[] = [
         href: "https://the-pet-feeder.vercel.app",
       },
     ],
+  },
+  {
+    slug: "cotizador-alimento",
+    title: "Cotizador de Alimento",
+    description:
+      "Aplicación web para calcular la ración diaria de alimento para perros y gatos según sus características y necesidades.",
+
+    image: "/art/cotizador-alimento.png",
+
+    tags: ["React", "Vite", "JavaScript", "Pet Tech", "Web"],
+
+    type: "app",
+    href: "https://cotizador-alimento.vercel.app",
+    external: true,
+    cta: "Abrir aplicación",
+
+    problem:
+      "Determinar una ración diaria de alimento requiere considerar diferentes características de cada mascota, por lo que realizar el cálculo manualmente puede resultar poco práctico.",
+
+    solution:
+      "Se desarrolló una aplicación web que centraliza los datos de la mascota y utiliza una lógica de cálculo para estimar la ración diaria, la cantidad de comidas y los gramos por comida.",
+
+    operation:
+      "El usuario ingresa el nombre, especie, peso, tamaño, etapa de vida, nivel de actividad y condición corporal. La aplicación procesa estos datos y genera una recomendación de alimentación junto con distintos planes posibles.",
+
+    technologies: ["React", "Vite", "JavaScript", "Tailwind CSS"],
+
+    features: [
+      "Cálculo de ración diaria",
+      "Soporte para perros y gatos",
+      "Consideración de peso y tamaño",
+      "Consideración de etapa de vida",
+      "Ajuste según nivel de actividad",
+      "Ajuste según condición corporal",
+      "Cálculo de comidas por día",
+      "Cálculo de gramos por comida",
+      "Generación de planes de alimentación",
+      "Validación de datos ingresados",
+    ],
+
+    links: [
+      {
+        label: "Abrir aplicación",
+        href: "https://cotizador-alimento.vercel.app",
+      },
+      {
+        label: "Ver repositorio",
+        href: "https://github.com/DamborianaIvan/CotizadorAlimento",
+      },
+    ],
+  },
+  {
+    slug: "petfeeder",
+    title: "PetFeeder",
+    description: "Alimentador inteligente para mascotas.",
+    image: "/art/petfeeder.png",
+    tags: ["IoT", "Hardware", "Firmware", "Web"],
+    type: "project",
+    href: "/proyectos/petfeeder",
+    external: false,
+    cta: "Abrir aplicación",
+  },
+  {
+    slug: "smart-access",
+    title: "Smart Access",
+    description: "Sistema inteligente de control de acceso.",
+    image: "/art/smart-access.svg",
+    tags: ["IoT", "Electrónica", "Software"],
+    type: "project",
+    href: "/proyectos/smart-access",
+    external: false,
+    cta: "Ver proyecto",
+  },
+  {
+    slug: "st-command",
+    title: "ST Command",
+    description: "Control inteligente mediante comandos.",
+    image: "/art/st-command.svg",
+    tags: ["IA", "Software", "Automatización"],
+    type: "app",
+    href: site.apps.stCommand,
+    external: true,
+    cta: "Abrir aplicación",
   },
 ];
