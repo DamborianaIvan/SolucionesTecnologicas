@@ -6,16 +6,14 @@ const nav = [
   ["Inicio", "/"],
   ["Proyectos", "/proyectos"],
   ["Servicios", "/#servicios"],
-  ["Sobre ST", "/#sobre-st"],
+  ["Sobre Wuidevs", "/#sobre-wuidevs"],
   ["Contacto", "/contacto"],
 ];
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  useEffect(() => {
-    setOpen(false);
-  }, [location]);
+  useEffect(() => { setOpen(false); }, [location]);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
@@ -35,43 +33,18 @@ export function Navbar() {
   return (
     <header className={"navbar" + (scrolled ? " scrolled" : "")}>
       <div className="container nav-inner">
-        <Link to="/" className="brand" aria-label="ST — Inicio">
-          <img
-            src="/logo.png"
-            alt="ST — Soluciones Tecnológicas"
-            width="139"
-            height="80"
-          />
+        <Link to="/" className="brand" aria-label="Wuidevs — Soluciones Tecnológicas — Inicio">
+          <img src="/logo.png" alt="Wuidevs — Soluciones Tecnológicas" width="139" height="80" />
         </Link>
-        <nav
-          id="main-nav"
-          className={open ? "nav-links is-open" : "nav-links"}
-          aria-label="Principal"
-        >
+        <nav id="main-nav" className={open ? "nav-links is-open" : "nav-links"} aria-label="Principal">
           {nav.map(([label, href]) => (
-            <Link
-              key={label}
-              to={href}
-              aria-current={
-                location.pathname + location.hash === href ? "page" : undefined
-              }
-              onClick={() => setOpen(false)}
-            >
+            <Link key={label} to={href} aria-current={location.pathname + location.hash === href ? "page" : undefined} onClick={() => setOpen(false)}>
               {label}
             </Link>
           ))}
         </nav>
-        <Link className="button nav-cta" to="/contacto">
-          Hablemos <ArrowUpRight size={17} />
-        </Link>
-        <button
-          id="menu-toggle"
-          className="menu-toggle"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={open}
-          aria-controls="main-nav"
-        >
+        <Link className="button nav-cta" to="/contacto">Hablemos <ArrowUpRight size={17} /></Link>
+        <button id="menu-toggle" className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? "Cerrar menú" : "Abrir menú"} aria-expanded={open} aria-controls="main-nav">
           {open ? <X /> : <Menu />}
         </button>
       </div>
@@ -83,49 +56,25 @@ export function Footer() {
     <footer className="footer">
       <div className="container footer-top">
         <div>
-          <Link className="footer-brand" to="/">
-            ST<span className="spark">✦</span>
-          </Link>
+          <Link className="footer-brand" to="/">Wuidevs<span className="spark">✦</span></Link>
           <p className="footer-name">Soluciones Tecnológicas</p>
-          <p className="muted">
-            Tecnología que funciona.
-            <br />
-            Soluciones que sirven.
-          </p>
+          <p className="muted">Tecnología que funciona.<br />Soluciones que sirven.</p>
         </div>
         <nav aria-label="Pie de página">
-          {nav.map(([label, href]) => (
-            <Link key={label} to={href}>
-              {label}
-            </Link>
-          ))}
+          {nav.map(([label, href]) => <Link key={label} to={href}>{label}</Link>)}
         </nav>
         <div className="social-links">
           <span className="eyebrow">CONECTEMOS</span>
-          {Object.entries(site.socials).map(([name, url]) =>
-            url ? (
-              <a
-                key={name}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {name} ↗
-              </a>
-            ) : (
-              <span key={name} className="unconfigured">
-                {name}
-                <small>Próximamente</small>
-              </span>
-            ),
-          )}
+          {Object.entries(site.socials).map(([name, url]) => url ? (
+            <a key={name} href={url} target="_blank" rel="noopener noreferrer">{name} ↗</a>
+          ) : (
+            <span key={name} className="unconfigured">{name}<small>Próximamente</small></span>
+          ))}
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© 2026 ST — Soluciones Tecnológicas</span>
-        <span>
-          Hecho con curiosidad. Y tecnología. <span className="spark">✦</span>
-        </span>
+        <span>© 2026 Wuidevs — Soluciones Tecnológicas</span>
+        <span>Hecho con curiosidad. Y tecnología. <span className="spark">✦</span></span>
       </div>
     </footer>
   );
