@@ -1,4 +1,4 @@
-# ST — Soluciones Tecnológicas
+# Wuidevs — Soluciones Tecnológicas
 
 Webapp React + TypeScript + Vite. Interfaz en español argentino, identidad visual basada en el logo oficial suministrado.
 
@@ -22,7 +22,7 @@ El resultado queda en `dist/`. Configurar el alojamiento con fallback SPA a `ind
 
 ## Contenido y configuración
 
-- `src/config/site.ts`: email, WhatsApp (formato internacional, solo dígitos), redes, URL de ST Command y fotografía real de Sobre ST. Los valores pendientes son `null`; no producen enlaces falsos ni simulan envíos.
+- `src/config/site.ts`: email, WhatsApp (formato internacional, solo dígitos), redes, URL de ST Command y fotografía real de Sobre Wuidevs. Los valores pendientes son `null`; no producen enlaces falsos ni simulan envíos.
 - `src/data/projects.ts`: proyectos, rutas, imágenes, textos, tecnologías, características, galería, videos y links. Añadir proyectos a este archivo permite mostrarlos en el listado y generar sus páginas internas sin duplicar componentes.
 - `src/components/ProjectCard.tsx`: tarjeta reutilizable, soporta rutas internas y aplicaciones externas con protección `noopener noreferrer`.
 - `src/pages/ProjectDetail.tsx`: ficha reutilizable con marcadores explícitos para información faltante. No se atribuyen especificaciones sin confirmar.
@@ -31,7 +31,7 @@ El resultado queda en `dist/`. Configurar el alojamiento con fallback SPA a `ind
 
 ## Rutas
 
-`/`, `/proyectos`, `/proyectos/petfeeder`, `/proyectos/smart-access`, `/contacto` y estado de página no encontrada. Servicios y Sobre ST se navegan con anclas en Home; pueden migrarse a páginas dedicadas desde `App.tsx` y `Layout.tsx`.
+`/`, `/proyectos`, `/proyectos/petfeeder`, `/proyectos/smart-access`, `/contacto` y estado de página no encontrada. Servicios y Sobre Wuidevs se navegan con anclas en Home; pueden migrarse a páginas dedicadas desde `App.tsx` y `Layout.tsx`.
 
 ## Accesibilidad y movimiento
 
