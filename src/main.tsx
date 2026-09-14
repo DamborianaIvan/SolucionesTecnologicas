@@ -7,7 +7,7 @@ import "./styles/hero-circuit-fix.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/SolucionesTecnologicas">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
