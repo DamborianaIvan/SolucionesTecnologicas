@@ -22,6 +22,8 @@ export default function ProjectCard({
   external,
   cta,
 }: ProjectCardProps) {
+  const isCotizador = title === "Cotizador de Alimento";
+
   return (
     <article className="project-card">
       <div className="project-visual">
@@ -31,6 +33,11 @@ export default function ProjectCard({
           width="640"
           height="440"
           loading="lazy"
+          style={
+            isCotizador
+              ? { objectFit: "contain", transform: "none" }
+              : undefined
+          }
         />
         <span className="project-type">
           {type === "project" ? "PROYECTO INTERNO" : "WEB APP"}
