@@ -5,7 +5,7 @@ import CTA from "../components/CTA";
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
-  const project = projects.find((p) => p.slug === slug && p.type === "project");
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     return (
@@ -26,7 +26,9 @@ export default function ProjectDetailPage() {
             <ArrowLeft size={17} />
             Todos los proyectos
           </Link>
-          <p className="eyebrow">WUIDEVS / PROYECTO INTERNO</p>
+          <p className="eyebrow">
+            WUIDEVS / {project.type === "project" ? "PROYECTO INTERNO" : "WEB APP"}
+          </p>
           <h1>{project.title}</h1>
           <p>{project.description}</p>
           <div className="tags">
@@ -149,18 +151,27 @@ export default function ProjectDetailPage() {
             <section className="detail-section">
               <h2>Links</h2>
               {project.links?.length ? (
-                project.links.map((l) => (
-                  <a
-                    className="text-link"
-                    key={l.href}
-                    href={l.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {l.label}
-                    <ArrowUpRight size={18} />
-                  </a>
-                ))
+                project.links.map((l) => {
+                  const isInternal = l.href.startsWith("/");
+
+                  return isInternal ? (
+                    <Link className="text-link" key={l.href} to={l.href}>
+                      {l.label}
+                      <ArrowUpRight size={18} />
+                    </Link>
+                  ) : (
+                    <a
+                      className="text-link"
+                      key={l.href}
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {l.label}
+                      <ArrowUpRight size={18} />
+                    </a>
+                  );
+                })
               ) : (
                 <p className="placeholder">
                   Enlaces del proyecto pendientes de incorporar.
