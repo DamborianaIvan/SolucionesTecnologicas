@@ -102,11 +102,7 @@ export const projects: Project[] = [
     links: [
       {
         label: "Abrir WebApp",
-        href: "https://the-pet-feeder.vercel.app/login",
-      },
-      {
-        label: "Ver repositorio",
-        href: "https://github.com/DamborianaIvan/ThePetFeeder",
+        href: "https://the-pet-feeder.vercel.app",
       },
     ],
   },
