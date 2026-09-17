@@ -18,7 +18,7 @@ function RouteEffects() {
           ? "Proyectos"
           : "");
     document.title =
-      (label ? label + " | " : "") + "ST — Soluciones Tecnológicas";
+      (label ? label + " | " : "") + "Wuidevs — Soluciones Tecnológicas";
     const description =
       project?.description ||
       "Informática, desarrollo e IoT para resolver problemas reales.";

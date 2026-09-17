@@ -34,7 +34,8 @@ export function Navbar() {
     <header className={"navbar" + (scrolled ? " scrolled" : "")}>
       <div className="container nav-inner">
         <Link to="/" className="brand" aria-label="Wuidevs — Soluciones Tecnológicas — Inicio">
-          <img src="/logo.png" alt="Wuidevs — Soluciones Tecnológicas" width="139" height="80" />
+          <img src="/logo.png" alt="" width="56" height="56" />
+          <span><strong>WUIDEVS</strong><small>Soluciones tecnológicas</small></span>
         </Link>
         <nav id="main-nav" className={open ? "nav-links is-open" : "nav-links"} aria-label="Principal">
           {nav.map(([label, href]) => (
@@ -56,8 +57,7 @@ export function Footer() {
     <footer className="footer">
       <div className="container footer-top">
         <div>
-          <Link className="footer-brand" to="/">Wuidevs<span className="spark">✦</span></Link>
-          <p className="footer-name">Soluciones Tecnológicas</p>
+          <Link className="footer-brand" to="/"><img src="/logo.png" alt="" width="66" height="66" /><span>WUIDEVS<small>Soluciones tecnológicas</small></span></Link>
           <p className="muted">Tecnología que funciona.<br />Soluciones que sirven.</p>
         </div>
         <nav aria-label="Pie de página">
