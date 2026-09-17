@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { site } from "../config/site";
-
 const nav = [
   ["Inicio", "/"],
   ["Proyectos", "/proyectos"],
-  ["Servicios", "/servicios"],
-  ["Sobre Wuidevs", "/sobre-wuidevs"],
+  ["Servicios", "/#servicios"],
+  ["Sobre Wuidevs", "/#sobre-wuidevs"],
   ["Contacto", "/contacto"],
 ];
-
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -40,12 +38,7 @@ export function Navbar() {
         </Link>
         <nav id="main-nav" className={open ? "nav-links is-open" : "nav-links"} aria-label="Principal">
           {nav.map(([label, href]) => (
-            <Link
-              key={label}
-              to={href}
-              aria-current={location.pathname === href ? "page" : undefined}
-              onClick={() => setOpen(false)}
-            >
+            <Link key={label} to={href} aria-current={location.pathname + location.hash === href ? "page" : undefined} onClick={() => setOpen(false)}>
               {label}
             </Link>
           ))}
@@ -58,7 +51,6 @@ export function Navbar() {
     </header>
   );
 }
-
 export function Footer() {
   return (
     <footer className="footer">

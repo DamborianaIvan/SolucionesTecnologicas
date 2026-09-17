@@ -4,25 +4,21 @@ import { Navbar, Footer } from "./components/Layout";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetail";
-import Services from "./pages/Services";
-import AboutWuidevs from "./pages/AboutWuidevs";
 import Contact from "./pages/Contact";
 import { projects } from "./data/projects";
-
 function RouteEffects() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     const project = projects.find((p) => p.href === pathname);
-    const staticLabels: Record<string, string> = {
-      "/": "",
-      "/proyectos": "Proyectos",
-      "/servicios": "Servicios",
-      "/sobre-wuidevs": "Sobre Wuidevs",
-      "/contacto": "Contacto",
-    };
-    const label = project?.title ?? staticLabels[pathname] ?? "";
+    const label =
+      project?.title ||
+      (pathname === "/contacto"
+        ? "Contacto"
+        : pathname === "/proyectos"
+          ? "Proyectos"
+          : "");
     document.title =
-      (label ? label + " | " : "") + "Wuidevs — Soluciones Tecnológicas";
+      (label ? label + " | " : "") + "ST — Soluciones Tecnológicas";
     const description =
       project?.description ||
       "Informática, desarrollo e IoT para resolver problemas reales.";
@@ -45,7 +41,6 @@ function RouteEffects() {
   }, [pathname, hash]);
   return null;
 }
-
 export default function App() {
   return (
     <>
@@ -59,8 +54,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/proyectos" element={<ProjectsPage />} />
           <Route path="/proyectos/:slug" element={<ProjectDetailPage />} />
-          <Route path="/servicios" element={<Services />} />
-          <Route path="/sobre-wuidevs" element={<AboutWuidevs />} />
           <Route path="/contacto" element={<Contact />} />
           <Route
             path="*"
