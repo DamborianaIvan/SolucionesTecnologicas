@@ -50,13 +50,11 @@ export default function ProjectDetailPage() {
         <figure className="detail-visual">
           <img
             src={project.image}
-            alt={`Representación conceptual de ${project.title}`}
+            alt={`Vista general de ${project.title}`}
             width="640"
             height="440"
           />
-          <figcaption>
-            Representación conceptual · No es una fotografía del dispositivo.
-          </figcaption>
+          <figcaption>Vista general del proyecto.</figcaption>
         </figure>
 
         <div className="detail-body">
@@ -68,7 +66,7 @@ export default function ProjectDetailPage() {
             {project.architecture?.length ? <a href="#arquitectura">Arquitectura</a> : null}
             <a href="#funcionalidades">Funcionalidades</a>
             <a href="#tecnologias">Tecnologías</a>
-            <a href="#galeria">Galería y videos</a>
+            <a href="#galeria">Galería</a>
           </aside>
 
           <div>
@@ -132,26 +130,40 @@ export default function ProjectDetailPage() {
             </section>
 
             <section className="detail-section" id="galeria">
-              <h2>Galería</h2>
+              <div className="detail-section-heading gallery-heading">
+                <ImageIcon size={22} />
+                <div>
+                  <h2>Galería</h2>
+                  <p>Recorrido visual por las principales pantallas de la aplicación.</p>
+                </div>
+              </div>
+
               {project.gallery?.length ? (
                 <div className="gallery">
-                  {project.gallery.map((img) => (
+                  {project.gallery.map((img, index) => (
                     <figure key={img.src} className="gallery-item">
-                      <img src={img.src} alt={img.alt} loading="lazy" />
-                      <figcaption>{img.alt}</figcaption>
+                      <div className="gallery-frame">
+                        <span className="gallery-index">{String(index + 1).padStart(2, "0")}</span>
+                        <img src={img.src} alt={img.alt} loading="lazy" />
+                      </div>
+                      <figcaption>{img.caption || img.alt}</figcaption>
                     </figure>
                   ))}
                 </div>
               ) : (
                 <div className="media-placeholder">
                   <ImageIcon />
-                  <p>Fotografías del proyecto próximamente.</p>
+                  <p>Capturas del proyecto próximamente.</p>
                 </div>
               )}
 
-              {project.videos?.length ? <h3>Videos</h3> : null}
-              {project.videos?.length
-                ? project.videos.map((video) => (
+              {project.videos?.length ? (
+                <div className="project-videos">
+                  <div className="detail-section-heading">
+                    <Film size={22} />
+                    <h3>Videos</h3>
+                  </div>
+                  {project.videos.map((video) => (
                     <figure key={video.src}>
                       <video
                         controls
@@ -161,12 +173,7 @@ export default function ProjectDetailPage() {
                       />
                       <figcaption>{video.title}</figcaption>
                     </figure>
-                  ))
-                : null}
-              {!project.gallery?.length && !project.videos?.length ? (
-                <div className="media-placeholder">
-                  <Film />
-                  <p>Contenido audiovisual del proyecto próximamente.</p>
+                  ))}
                 </div>
               ) : null}
             </section>
