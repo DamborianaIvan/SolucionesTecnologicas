@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, ImageIcon, Film, Layers3 } from "lucide-react";
 import { projects } from "../data/projects";
 import CTA from "../components/CTA";
+import "../styles/project-detail.css";
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
@@ -149,19 +150,19 @@ export default function ProjectDetailPage() {
               )}
 
               {project.videos?.length ? <h3>Videos</h3> : null}
-              {project.videos?.length ? (
-                project.videos.map((video) => (
-                  <figure key={video.src}>
-                    <video
-                      controls
-                      preload="metadata"
-                      aria-label={video.title}
-                      src={video.src}
-                    />
-                    <figcaption>{video.title}</figcaption>
-                  </figure>
-                ))
-              ) : null}
+              {project.videos?.length
+                ? project.videos.map((video) => (
+                    <figure key={video.src}>
+                      <video
+                        controls
+                        preload="metadata"
+                        aria-label={video.title}
+                        src={video.src}
+                      />
+                      <figcaption>{video.title}</figcaption>
+                    </figure>
+                  ))
+                : null}
               {!project.gallery?.length && !project.videos?.length ? (
                 <div className="media-placeholder">
                   <Film />
