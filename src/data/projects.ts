@@ -14,9 +14,11 @@ export interface Project {
   operation?: string;
   technologies?: string[];
   features?: string[];
+  architecture?: { layer: string; items: string[] }[];
   gallery?: { src: string; alt: string }[];
   videos?: { src: string; title: string }[];
   links?: { label: string; href: string }[];
+  relatedProject?: { label: string; href: string };
 }
 export const projects: Project[] = [
   {
@@ -84,6 +86,21 @@ export const projects: Project[] = [
       "Integración con el sistema ThePetFeeder",
     ],
 
+    architecture: [
+      {
+        layer: "Frontend",
+        items: ["React", "TypeScript", "Vite", "React Router"],
+      },
+      {
+        layer: "Backend / API",
+        items: ["Node.js", "Express", "MongoDB", "REST API"],
+      },
+      {
+        layer: "Dispositivo IoT",
+        items: ["ESP8266", "WiFi", "Motor paso a paso"],
+      },
+    ],
+
     gallery: [
       {
         src: "/art/the-pet-feeder-webapp-login.png",
@@ -105,6 +122,11 @@ export const projects: Project[] = [
         href: "https://the-pet-feeder.vercel.app",
       },
     ],
+
+    relatedProject: {
+      label: "Ver proyecto completo de ThePetFeeder",
+      href: "/proyectos/the-pet-feeder",
+    },
   },
   {
     slug: "cotizador-alimento",
