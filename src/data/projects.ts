@@ -66,7 +66,7 @@ export const projects: Project[] = [
       "Se desarrolló una WebApp específica para ThePetFeeder que funciona como interfaz de interacción entre el usuario y el dispositivo IoT, permitiendo gestionar sus funciones de forma remota desde una aplicación web.",
     operation:
       "El usuario accede a la WebApp mediante autenticación y desde su panel puede interactuar con las funcionalidades disponibles de ThePetFeeder. La aplicación actúa como la capa de usuario del sistema IoT.",
-    technologies: ["React", "TypeScript", "Vite", "HTML", "CSS", "IoT"],
+    technologies: ["React", "TypeScript", "Express.js", "MongoDB", "IoT"],
     features: [
       "Autenticación de usuarios",
       "Panel de control del dispositivo",
