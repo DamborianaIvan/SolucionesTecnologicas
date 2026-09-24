@@ -65,10 +65,8 @@ export function Footer() {
         </nav>
         <div className="social-links">
           <span className="eyebrow">CONECTEMOS</span>
-          {Object.entries(site.socials).map(([name, url]) => url ? (
-            <a key={name} href={url} target="_blank" rel="noopener noreferrer">{name} ↗</a>
-          ) : (
-            <span key={name} className="unconfigured">{name}<small>Próximamente</small></span>
+          {Object.entries(site.socials).filter(([, url]) => Boolean(url)).map(([name, url]) => (
+            <a key={name} href={url!} target="_blank" rel="noopener noreferrer">{name} ↗</a>
           ))}
         </div>
       </div>

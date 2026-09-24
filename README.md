@@ -31,7 +31,7 @@ El resultado queda en `dist/`. Configurar el alojamiento con fallback SPA a `ind
 
 ## Rutas
 
-`/`, `/proyectos`, `/proyectos/petfeeder`, `/proyectos/smart-access`, `/contacto` y estado de página no encontrada. Servicios y Sobre Wuidevs se navegan con anclas en Home; pueden migrarse a páginas dedicadas desde `App.tsx` y `Layout.tsx`.
+`/`, `/proyectos`, `/proyectos/pepes-napoletana`, `/proyectos/the-pet-feeder`, `/proyectos/the-pet-feeder-webapp`, `/contacto` y estado de página no encontrada. El detalle de proyectos se genera desde `src/data/projects.ts`; algunos proyectos enlazan directamente a sus aplicaciones externas. Servicios y Sobre Wuidevs se navegan con anclas en Home.
 
 ## Accesibilidad y movimiento
 
@@ -39,4 +39,4 @@ Enlace para saltar al contenido, navegación semántica, foco visible, menú mó
 
 ## Publicación
 
-Sites respondió que no está habilitado en este espacio. El proyecto está preparado para publicar su carpeta `dist` en un alojamiento compatible con SPA. La publicación y los canales reales de contacto siguen pendientes; el sitio no envía mensajes mientras no se configuren.
+El proyecto está preparado para publicar su carpeta `dist` en un alojamiento compatible con SPA; `vercel.json` incluye el fallback para rutas internas. Instagram es el canal de contacto configurado en `src/config/site.ts`. El sitio no envía mensajes desde un formulario.

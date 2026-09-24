@@ -13,7 +13,7 @@ export const site: {
   description: "Informática, desarrollo e IoT para resolver problemas reales.",
   email: null, // PENDIENTE: correo oficial
   whatsapp: null, // PENDIENTE: número internacional, solo dígitos
-  socials: { Instagram: null, LinkedIn: null, GitHub: null },
+  socials: { Instagram: "https://www.instagram.com/wuidevs.stecnologicas/" },
   apps: { stCommand: null },
   aboutPhoto: null, // PENDIENTE: fotografía real del espacio Wuidevs
 };

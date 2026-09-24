@@ -30,7 +30,7 @@ export default function ProjectCard({
       <div className="project-visual">
         <img
           src={image}
-          alt={`Ilustración conceptual de ${title}`}
+          alt={`Portada de ${title}`}
           width="640"
           height="440"
           loading="lazy"
