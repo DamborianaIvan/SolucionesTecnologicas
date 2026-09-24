@@ -3,6 +3,7 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  imageOrientation?: "portrait";
   cardImage?: string;
   tags: string[];
   type: "project" | "app";
@@ -16,7 +17,7 @@ export interface Project {
   features?: string[];
   architecture?: { layer: string; items: string[] }[];
   gallery?: { src: string; alt: string; caption?: string; orientation?: "portrait" }[];
-  videos?: { src: string; title: string }[];
+  videos?: { src: string; title: string; orientation?: "portrait"; poster?: string }[];
   links?: { label: string; href: string }[];
   relatedProject?: { label: string; href: string; title: string; description: string };
 }
@@ -70,7 +71,8 @@ export const projects: Project[] = [
     slug: "the-pet-feeder",
     title: "ThePetFeeder",
     description: "Sistema IoT de alimentación para mascotas que conecta un dispositivo físico con una aplicación web.",
-    image: "/art/petfeeder.svg",
+    image: "/art/the-pet-feeder/dispositivo-abierto.jpg",
+    imageOrientation: "portrait",
     tags: ["IoT", "ESP8266", "WiFi", "WebApp"],
     type: "project",
     href: "/proyectos/the-pet-feeder",
@@ -97,19 +99,24 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        src: "/art/the-pet-feeder-webapp-03-comederos.jpeg",
-        alt: "Listado de comederos en la aplicación de ThePetFeeder",
-        caption: "01 · WebApp: mis comederos",
+        src: "/art/the-pet-feeder/dispositivo-dispensando.jpg",
+        alt: "Comedero ThePetFeeder cargado, con alimento en los dos platos",
+        caption: "Dispositivo y platos de alimentación",
+        orientation: "portrait",
       },
       {
-        src: "/art/the-pet-feeder-webapp-05-hora.jpeg",
-        alt: "Configuración de horarios de alimentación en ThePetFeeder",
-        caption: "02 · WebApp: horarios programados",
+        src: "/art/the-pet-feeder/dispositivo-cerrado.jpg",
+        alt: "Comedero ThePetFeeder con la tapa colocada",
+        caption: "Diseño del comedero",
+        orientation: "portrait",
       },
+    ],
+    videos: [
       {
-        src: "/art/the-pet-feeder-webapp-07-historial.jpeg",
-        alt: "Historial de alimentación en ThePetFeeder",
-        caption: "03 · WebApp: historial de alimentación",
+        src: "/art/the-pet-feeder/funcionamiento.mp4",
+        title: "Demostración del comedero desde la WebApp",
+        orientation: "portrait",
+        poster: "/art/the-pet-feeder/video-portada.jpg",
       },
     ],
     links: [

@@ -7,14 +7,14 @@ import "../styles/project-detail.css";
 
 function ProjectMedia({ project }: { project: Project }) {
   const [selected, setSelected] = useState(0);
-  const media: { src: string; alt: string; caption: string; kind: "image" | "video"; orientation?: "portrait" }[] = [
-    { src: project.image, alt: `Vista general de ${project.title}`, caption: "Vista general", kind: "image" as const },
+  const media: { src: string; alt: string; caption: string; kind: "image" | "video"; orientation?: "portrait"; poster?: string }[] = [
+    { src: project.image, alt: `Vista general de ${project.title}`, caption: "Vista general", kind: "image" as const, orientation: project.imageOrientation },
     ...(project.gallery ?? []).map((item) => ({
       ...item,
       caption: (item.caption || item.alt).replace(/^\d{2} · /, ""),
       kind: "image" as const,
     })),
-    ...(project.videos ?? []).map((item) => ({ src: item.src, alt: item.title, caption: item.title, kind: "video" as const })),
+    ...(project.videos ?? []).map((item) => ({ ...item, alt: item.title, caption: item.title, kind: "video" as const })),
   ];
   const active = media[selected];
 
@@ -31,7 +31,7 @@ function ProjectMedia({ project }: { project: Project }) {
       <figure className="media-feature">
         <div className={`media-feature-frame${active.orientation === "portrait" ? " is-portrait" : ""}`}>
           {active.kind === "video" ? (
-            <video key={active.src} controls preload="metadata" aria-label={active.alt} src={active.src} />
+            <video key={active.src} controls preload="metadata" playsInline poster={active.poster} aria-label={active.alt} src={active.src} />
           ) : (
             <img key={active.src} src={active.src} alt={active.alt} />
           )}
@@ -53,7 +53,7 @@ function ProjectMedia({ project }: { project: Project }) {
                 aria-pressed={selected === index}
               >
                 <span className="media-thumbnail-preview">
-                  {item.kind === "video" ? <Film size={26} aria-hidden="true" /> : <img src={item.src} alt="" loading="lazy" />}
+                  {item.kind === "video" ? (item.poster ? <img src={item.poster} alt="" loading="lazy" /> : <Film size={26} aria-hidden="true" />) : <img src={item.src} alt="" loading="lazy" />}
                 </span>
                 <span className="media-thumbnail-label">{item.caption}</span>
               </button>
