@@ -71,7 +71,13 @@
   overflow-x: auto;
   padding: 3px 3px 12px;
   scroll-snap-type: x proximity;
+  scrollbar-color: #35536a #091522;
+  scrollbar-width: thin;
 }
+
+.media-thumbnails::-webkit-scrollbar { height: 6px; }
+.media-thumbnails::-webkit-scrollbar-track { background: #091522; }
+.media-thumbnails::-webkit-scrollbar-thumb { border-radius: 6px; background: #35536a; }
 
 .media-thumbnail {
   flex: 0 0 156px;
