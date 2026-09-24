@@ -17,14 +17,21 @@ export interface Project {
   gallery?: { src: string; alt: string; caption?: string }[];
   videos?: { src: string; title: string }[];
   links?: { label: string; href: string }[];
-  relatedProject?: { label: string; href: string; title: string; description: string };
+  relatedProject?: {
+    label: string;
+    href: string;
+    title: string;
+    description: string;
+  };
 }
 export const projects: Project[] = [
   {
     slug: "pepes-napoletana",
     title: "Pepe's Napoletana",
-    description: "Sistema de gestión interna para la operación diaria de un restaurante.",
-    image: "https://raw.githubusercontent.com/DamborianaIvan/pepes-napoli/main/panel/src/assets/pepes.png",
+    description:
+      "Sistema de gestión interna para la operación diaria de un restaurante.",
+    image:
+      "https://raw.githubusercontent.com/DamborianaIvan/pepes-napoli/main/panel/src/assets/pepes.png",
     tags: ["React", "TypeScript", "Node.js", "MongoDB", "Gastronomía"],
     type: "app",
     href: "/proyectos/pepes-napoletana",
@@ -33,10 +40,18 @@ export const projects: Project[] = [
     problem:
       "Un restaurante necesita coordinar los pedidos de salón, para llevar y delivery entre la atención, la cocina y la caja, y mantener el control de mesas, insumos y ventas.",
     solution:
-      "Agustina Di Natale e Ivan Damboriana desarrollaron un sistema de gestión interna que reúne estos circuitos en una sola aplicación, con pantallas y permisos según el trabajo de cada integrante del equipo.",
+      "Wuidevs, desarrollo un sistema de gestión interna que reúne estos circuitos en una sola aplicación, con pantallas y permisos según el trabajo de cada integrante del equipo.",
     operation:
       "El equipo registra pedidos de salón, takeaway o delivery; cocina los prepara y actualiza su estado; caja cobra, aplica descuentos, divide pagos por medio y emite tickets. La administración gestiona mesas, recetas, stock, usuarios, reportes y auditoría.",
-    technologies: ["React", "TypeScript", "Vite", "Material UI", "Node.js", "Express", "MongoDB"],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Material UI",
+      "Node.js",
+      "Express",
+      "MongoDB",
+    ],
     features: [
       "Pedidos de salón, takeaway y delivery",
       "Vista de cocina y seguimiento del estado de los pedidos",
@@ -47,18 +62,25 @@ export const projects: Project[] = [
       "Usuarios con permisos por función y registro de actividad",
     ],
     architecture: [
-      { layer: "Panel operativo", items: ["React", "TypeScript", "Vite", "Material UI"] },
+      {
+        layer: "Panel operativo",
+        items: ["React", "TypeScript", "Vite", "Material UI"],
+      },
       { layer: "API", items: ["Node.js", "Express", "JWT"] },
       { layer: "Datos", items: ["MongoDB", "Mongoose"] },
     ],
     links: [
-      { label: "Ver repositorio", href: "https://github.com/DamborianaIvan/pepes-napoli" },
+      {
+        label: "Ver repositorio",
+        href: "https://github.com/DamborianaIvan/pepes-napoli",
+      },
     ],
   },
   {
     slug: "the-pet-feeder",
     title: "ThePetFeeder",
-    description: "Sistema IoT de alimentación para mascotas que conecta un dispositivo físico con una aplicación web.",
+    description:
+      "Sistema IoT de alimentación para mascotas que conecta un dispositivo físico con una aplicación web.",
     image: "/art/petfeeder.svg",
     tags: ["IoT", "ESP8266", "WiFi", "WebApp"],
     type: "project",
@@ -71,7 +93,15 @@ export const projects: Project[] = [
       "ThePetFeeder reúne un comedero conectado y una aplicación web para administrar el dispositivo, configurar horarios y consultar su actividad a distancia.",
     operation:
       "El usuario inicia sesión en la WebApp, agrega su comedero y gestiona sus horarios. El dispositivo se conecta por WiFi y la aplicación permite consultar los comederos y el historial de alimentación.",
-    technologies: ["ESP8266", "WiFi", "Motor paso a paso", "React", "TypeScript", "Express", "MongoDB"],
+    technologies: [
+      "ESP8266",
+      "WiFi",
+      "Motor paso a paso",
+      "React",
+      "TypeScript",
+      "Express",
+      "MongoDB",
+    ],
     features: [
       "Dispositivo conectado por WiFi",
       "Administración de comederos desde la WebApp",
@@ -109,7 +139,8 @@ export const projects: Project[] = [
       label: "Conocer ThePetFeeder WebApp",
       href: "/proyectos/the-pet-feeder-webapp",
       title: "La aplicación web",
-      description: "Conocé las pantallas de gestión, los horarios programados y el historial de alimentación en la ficha de la WebApp.",
+      description:
+        "Conocé las pantallas de gestión, los horarios programados y el historial de alimentación en la ficha de la WebApp.",
     },
   },
   {
@@ -227,7 +258,8 @@ export const projects: Project[] = [
       label: "Ver proyecto completo de ThePetFeeder",
       href: "/proyectos/the-pet-feeder",
       title: "El ecosistema ThePetFeeder",
-      description: "Esta WebApp forma parte de un sistema IoT más amplio. El proyecto completo reúne el dispositivo, firmware, backend y aplicación web.",
+      description:
+        "Esta WebApp forma parte de un sistema IoT más amplio. El proyecto completo reúne el dispositivo, firmware, backend y aplicación web.",
     },
   },
   {
