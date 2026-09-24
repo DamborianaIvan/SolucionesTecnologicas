@@ -1,8 +1,70 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, ImageIcon, Film, Layers3 } from "lucide-react";
-import { projects } from "../data/projects";
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Film, Layers3 } from "lucide-react";
+import { projects, type Project } from "../data/projects";
 import CTA from "../components/CTA";
 import "../styles/project-detail.css";
+
+function ProjectMedia({ project }: { project: Project }) {
+  const [selected, setSelected] = useState(0);
+  const media = [
+    { src: project.image, alt: `Vista general de ${project.title}`, caption: "Vista general", kind: "image" as const },
+    ...(project.gallery ?? []).map((item) => ({
+      ...item,
+      caption: (item.caption || item.alt).replace(/^\d{2} · /, ""),
+      kind: "image" as const,
+    })),
+    ...(project.videos ?? []).map((item) => ({ src: item.src, alt: item.title, caption: item.title, kind: "video" as const })),
+  ];
+  const active = media[selected];
+
+  return (
+    <section className="project-media" id="galeria" aria-label={`Galería de ${project.title}`}>
+      <div className="project-media-heading">
+        <div>
+          <p className="eyebrow">EXPLORÁ EL PROYECTO</p>
+          <h2>{media.length > 1 ? "Un recorrido visual" : "Vista del proyecto"}</h2>
+        </div>
+        {media.length > 1 && <span className="media-count">{String(selected + 1).padStart(2, "0")} / {String(media.length).padStart(2, "0")}</span>}
+      </div>
+
+      <figure className="media-feature">
+        <div className="media-feature-frame">
+          {active.kind === "video" ? (
+            <video key={active.src} controls preload="metadata" aria-label={active.alt} src={active.src} />
+          ) : (
+            <img key={active.src} src={active.src} alt={active.alt} />
+          )}
+        </div>
+        <figcaption aria-live="polite">{active.caption}</figcaption>
+      </figure>
+
+      {media.length > 1 && (
+        <div className="media-navigation">
+          <button className="media-arrow" type="button" onClick={() => setSelected((selected - 1 + media.length) % media.length)} aria-label="Ver elemento anterior"><ChevronLeft size={22} /></button>
+          <div className="media-thumbnails" role="group" aria-label="Elegir imagen o video">
+            {media.map((item, index) => (
+              <button
+                key={`${item.kind}-${item.src}`}
+                type="button"
+                className={`media-thumbnail${selected === index ? " is-active" : ""}`}
+                onClick={() => setSelected(index)}
+                aria-label={`Ver ${item.caption}`}
+                aria-pressed={selected === index}
+              >
+                <span className="media-thumbnail-preview">
+                  {item.kind === "video" ? <Film size={26} aria-hidden="true" /> : <img src={item.src} alt="" loading="lazy" />}
+                </span>
+                <span className="media-thumbnail-label">{item.caption}</span>
+              </button>
+            ))}
+          </div>
+          <button className="media-arrow" type="button" onClick={() => setSelected((selected + 1) % media.length)} aria-label="Ver elemento siguiente"><ChevronRight size={22} /></button>
+        </div>
+      )}
+    </section>
+  );
+}
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
@@ -47,26 +109,18 @@ export default function ProjectDetailPage() {
       </section>
 
       <div className="container">
-        <figure className="detail-visual">
-          <img
-            src={project.image}
-            alt={`Vista general de ${project.title}`}
-            width="640"
-            height="440"
-          />
-          <figcaption>Vista general del proyecto.</figcaption>
-        </figure>
+        <ProjectMedia key={project.slug} project={project} />
 
         <div className="detail-body">
           <aside>
             <p className="eyebrow">EL PROYECTO</p>
+            <a href="#galeria">Galería</a>
             <a href="#problema">El problema</a>
             <a href="#solucion">La solución</a>
             <a href="#funcionamiento">Cómo funciona</a>
             {project.architecture?.length ? <a href="#arquitectura">Arquitectura</a> : null}
             <a href="#funcionalidades">Funcionalidades</a>
             <a href="#tecnologias">Tecnologías</a>
-            <a href="#galeria">Galería</a>
           </aside>
 
           <div>
@@ -127,55 +181,6 @@ export default function ProjectDetailPage() {
                   Las tecnologías y especificaciones técnicas se publicarán cuando estén confirmadas.
                 </p>
               )}
-            </section>
-
-            <section className="detail-section" id="galeria">
-              <div className="detail-section-heading gallery-heading">
-                <ImageIcon size={22} />
-                <div>
-                  <h2>Galería</h2>
-                  <p>Recorrido visual por las principales pantallas de la aplicación.</p>
-                </div>
-              </div>
-
-              {project.gallery?.length ? (
-                <div className="gallery">
-                  {project.gallery.map((img, index) => (
-                    <figure key={img.src} className="gallery-item">
-                      <div className="gallery-frame">
-                        <span className="gallery-index">{String(index + 1).padStart(2, "0")}</span>
-                        <img src={img.src} alt={img.alt} loading="lazy" />
-                      </div>
-                      <figcaption>{img.caption || img.alt}</figcaption>
-                    </figure>
-                  ))}
-                </div>
-              ) : (
-                <div className="media-placeholder">
-                  <ImageIcon />
-                  <p>Capturas del proyecto próximamente.</p>
-                </div>
-              )}
-
-              {project.videos?.length ? (
-                <div className="project-videos">
-                  <div className="detail-section-heading">
-                    <Film size={22} />
-                    <h3>Videos</h3>
-                  </div>
-                  {project.videos.map((video) => (
-                    <figure key={video.src}>
-                      <video
-                        controls
-                        preload="metadata"
-                        aria-label={video.title}
-                        src={video.src}
-                      />
-                      <figcaption>{video.title}</figcaption>
-                    </figure>
-                  ))}
-                </div>
-              ) : null}
             </section>
 
             {project.relatedProject ? (
