@@ -15,7 +15,7 @@ export interface Project {
   technologies?: string[];
   features?: string[];
   architecture?: { layer: string; items: string[] }[];
-  gallery?: { src: string; alt: string; caption?: string }[];
+  gallery?: { src: string; alt: string; caption?: string; orientation?: "portrait" }[];
   videos?: { src: string; title: string }[];
   links?: { label: string; href: string }[];
   relatedProject?: { label: string; href: string; title: string; description: string };
@@ -196,36 +196,43 @@ export const projects: Project[] = [
         src: "/art/the-pet-feeder-webapp-01-login.jpeg",
         alt: "Pantalla de inicio de sesión de ThePetFeeder WebApp",
         caption: "01 · Inicio de sesión",
+        orientation: "portrait",
       },
       {
         src: "/art/the-pet-feeder-webapp-02-agregar.jpeg",
         alt: "Pantalla para agregar un comedero a ThePetFeeder WebApp",
         caption: "02 · Agregar comedero",
+        orientation: "portrait",
       },
       {
         src: "/art/the-pet-feeder-webapp-03-comederos.jpeg",
         alt: "Listado de comederos de ThePetFeeder WebApp",
         caption: "03 · Mis comederos",
+        orientation: "portrait",
       },
       {
         src: "/art/the-pet-feeder-webapp-04-administracion.jpeg",
         alt: "Pantalla de administración de un comedero ThePetFeeder",
         caption: "04 · Administración del comedero",
+        orientation: "portrait",
       },
       {
         src: "/art/the-pet-feeder-webapp-05-hora.jpeg",
         alt: "Configuración de horarios programados de ThePetFeeder",
         caption: "05 · Horarios programados · Configuración",
+        orientation: "portrait",
       },
       {
         src: "/art/the-pet-feeder-webapp-06-hora.jpeg",
         alt: "Configuración avanzada de horarios programados de ThePetFeeder",
         caption: "06 · Horarios programados · Continuación",
+        orientation: "portrait",
       },
       {
         src: "/art/the-pet-feeder-webapp-07-historial.jpeg",
         alt: "Historial de alimentación de ThePetFeeder",
         caption: "07 · Historial de alimentación",
+        orientation: "portrait",
       },
     ],
     links: [

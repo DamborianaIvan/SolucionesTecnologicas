@@ -7,7 +7,7 @@ import "../styles/project-detail.css";
 
 function ProjectMedia({ project }: { project: Project }) {
   const [selected, setSelected] = useState(0);
-  const media = [
+  const media: { src: string; alt: string; caption: string; kind: "image" | "video"; orientation?: "portrait" }[] = [
     { src: project.image, alt: `Vista general de ${project.title}`, caption: "Vista general", kind: "image" as const },
     ...(project.gallery ?? []).map((item) => ({
       ...item,
@@ -29,7 +29,7 @@ function ProjectMedia({ project }: { project: Project }) {
       </div>
 
       <figure className="media-feature">
-        <div className="media-feature-frame">
+        <div className={`media-feature-frame${active.orientation === "portrait" ? " is-portrait" : ""}`}>
           {active.kind === "video" ? (
             <video key={active.src} controls preload="metadata" aria-label={active.alt} src={active.src} />
           ) : (
@@ -47,7 +47,7 @@ function ProjectMedia({ project }: { project: Project }) {
               <button
                 key={`${item.kind}-${item.src}`}
                 type="button"
-                className={`media-thumbnail${selected === index ? " is-active" : ""}`}
+                className={`media-thumbnail${selected === index ? " is-active" : ""}${item.orientation === "portrait" ? " is-portrait" : ""}`}
                 onClick={() => setSelected(index)}
                 aria-label={`Ver ${item.caption}`}
                 aria-pressed={selected === index}

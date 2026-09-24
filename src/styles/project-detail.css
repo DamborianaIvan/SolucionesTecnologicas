@@ -32,13 +32,13 @@
   background: linear-gradient(145deg, #07131f, #0a1927);
 }
 
+.media-feature-frame.is-portrait { height: min(88vh, 1000px); }
+
 .media-feature-frame img,
 .media-feature-frame video {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   border-radius: 9px;
 }
@@ -103,6 +103,7 @@
   background: #07131f;
 }
 .media-thumbnail-preview img { width: 100%; height: 100%; object-fit: cover; }
+.media-thumbnail.is-portrait .media-thumbnail-preview img { object-fit: contain; }
 .media-thumbnail-preview svg { color: var(--primary-bright); }
 .media-thumbnail-label {
   display: -webkit-box;
@@ -133,6 +134,7 @@
 @media (max-width: 640px) {
   .project-media { margin: 30px 0 54px; }
   .media-feature-frame { height: clamp(220px, 62vw, 380px); padding: 8px; }
+  .media-feature-frame.is-portrait { height: min(80vh, 720px); }
   .media-navigation { gap: 8px; }
   .media-arrow { width: 36px; height: 36px; }
   .media-thumbnail { flex-basis: 120px; }
