@@ -8,6 +8,7 @@ export type ProjectCardProps = Pick<
   | "title"
   | "description"
   | "image"
+  | "cardImage"
   | "tags"
   | "type"
   | "href"
@@ -19,6 +20,7 @@ export default function ProjectCard({
   title,
   description,
   image,
+  cardImage,
   tags,
   type,
   href,
@@ -27,10 +29,10 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <article className="project-card">
-      <div className="project-visual">
+      <div className={`project-visual${cardImage ? " project-visual--logo" : ""}`}>
         <img
-          src={image}
-          alt={`Portada de ${title}`}
+          src={cardImage || image}
+          alt={cardImage ? `Logo de ${title}` : `Portada de ${title}`}
           width="640"
           height="440"
           loading="lazy"

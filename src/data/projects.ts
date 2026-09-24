@@ -3,6 +3,7 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  cardImage?: string;
   tags: string[];
   type: "project" | "app";
   href: string | null;
@@ -25,6 +26,7 @@ export const projects: Project[] = [
     title: "Pepe's Napoletana",
     description: "Sistema de gestión interna para la operación diaria de un restaurante.",
     image: "/art/pepes/inicio.png",
+    cardImage: "/art/pepes/logo.png",
     tags: ["React", "TypeScript", "Node.js", "MongoDB", "Gastronomía"],
     type: "app",
     href: "/proyectos/pepes-napoletana",

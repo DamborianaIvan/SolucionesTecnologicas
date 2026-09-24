@@ -12,6 +12,10 @@
   transition: none;
 }
 
+.project-visual--logo {
+  background: #fafafa;
+}
+
 .project-card:hover img {
   transform: none;
 }
