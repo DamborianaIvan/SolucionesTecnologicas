@@ -181,11 +181,8 @@ export default function ProjectDetailPage() {
             {project.relatedProject ? (
               <section className="detail-section related-project">
                 <p className="eyebrow">PROYECTO RELACIONADO</p>
-                <h2>El ecosistema ThePetFeeder</h2>
-                <p>
-                  Esta WebApp forma parte de un sistema IoT más amplio. El proyecto completo reúne el dispositivo,
-                  firmware, backend y aplicación web.
-                </p>
+                <h2>{project.relatedProject.title}</h2>
+                <p>{project.relatedProject.description}</p>
                 <Link className="text-link" to={project.relatedProject.href}>
                   {project.relatedProject.label}
                   <ArrowUpRight size={18} />
