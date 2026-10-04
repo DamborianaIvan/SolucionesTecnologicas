@@ -16,9 +16,9 @@ export default function ScrollReveal({ children, className = "" }: {
     media.add("(prefers-reduced-motion: no-preference)", () => {
       const words = ref.current?.querySelectorAll(".rb-word");
       if (!words?.length) return;
-      gsap.fromTo(words, { opacity: .2, filter: "blur(3px)", y: 12 }, {
-        opacity: 1, filter: "blur(0px)", y: 0, stagger: .08, ease: "none",
-        scrollTrigger: { trigger: ref.current, start: "top 90%", end: "top 55%", scrub: true },
+      gsap.fromTo(words, { opacity: 0, y: 14 }, {
+        opacity: 1, y: 0, duration: .65, stagger: .06, ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 92%", once: true },
       });
     }, ref);
     return () => media.revert();
