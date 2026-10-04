@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import SectionLink from "./SectionLink";
 import { site } from "../config/site";
 const nav = [
-  ["Inicio", "/"],
-  ["Proyectos", "/proyectos"],
+  ["Inicio", "/#inicio"],
+  ["Proyectos", "/#proyectos"],
   ["Servicios", "/#servicios"],
   ["Sobre Wuidevs", "/#sobre-wuidevs"],
   ["Contacto", "/contacto"],
@@ -39,9 +40,9 @@ export function Navbar() {
         </Link>
         <nav id="main-nav" className={open ? "nav-links is-open" : "nav-links"} aria-label="Principal">
           {nav.map(([label, href]) => (
-            <Link key={label} to={href} aria-current={location.pathname + location.hash === href ? "page" : undefined} onClick={() => setOpen(false)}>
+            <SectionLink key={label} to={href} aria-current={location.pathname + location.hash === href ? "page" : undefined} onClick={() => setOpen(false)}>
               {label}
-            </Link>
+            </SectionLink>
           ))}
         </nav>
         <Link className="button nav-cta" to="/contacto">Hablemos <ArrowUpRight size={17} /></Link>
@@ -61,7 +62,7 @@ export function Footer() {
           <p className="muted">Tecnología que funciona.<br />Soluciones que sirven.</p>
         </div>
         <nav aria-label="Pie de página">
-          {nav.map(([label, href]) => <Link key={label} to={href}>{label}</Link>)}
+          {nav.map(([label, href]) => <SectionLink key={label} to={href}>{label}</SectionLink>)}
         </nav>
         <div className="social-links">
           <span className="eyebrow">CONECTEMOS</span>

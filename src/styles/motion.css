@@ -1,0 +1,28 @@
+/* Shared motion language. Native scrolling remains under the visitor's control. */
+:root { --motion-ease: cubic-bezier(.22,1,.36,1); }
+html { scroll-padding-top: 108px; }
+.nav-links a { position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: 5px; left: 0; right: 0; height: 1px; background: var(--primary-bright); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--motion-ease); }
+.nav-links a:hover::after, .nav-links a:focus-visible::after, .nav-links a[aria-current]::after { transform: scaleX(1); }
+.button, .media-arrow, .media-thumbnail, .contact-options article, .architecture-card { transition: transform .3s var(--motion-ease), border-color .3s, background-color .3s, box-shadow .3s; }
+.button svg, .text-link svg, .footer nav a, .social-links a { transition: transform .3s var(--motion-ease), color .3s; }
+.text-link:hover svg, .text-link:focus-visible svg { transform: translateX(4px); }
+.back-link:hover svg { transform: translateX(-4px); }
+.button:hover svg { transform: translate(2px,-2px); }
+.button:active, .media-arrow:active { transform: scale(.97); }
+.contact-options article:hover, .architecture-card:hover { border-color: var(--line-strong); background-color: #0b1c2a; }
+.media-thumbnail:hover { transform: translateY(-3px); }
+.footer nav a:hover, .social-links a:hover { transform: translateX(4px); }
+@media(prefers-reduced-motion:no-preference) {
+  .route-surface { animation: page-enter .4s ease-out; }
+  .media-feature-frame>img, .media-feature-frame>video { animation: media-enter .35s ease-out; }
+  .nav-links.is-open { animation: menu-enter .22s ease-out; }
+  @keyframes page-enter { from { opacity: .25; } to { opacity: 1; } }
+  @keyframes media-enter { from { opacity: .3; } to { opacity: 1; } }
+  @keyframes menu-enter { from { opacity: 0; translate: 0 -8px; } to { opacity: 1; translate: 0 0; } }
+}
+@media(max-width:820px) { html { scroll-padding-top: 94px; } }
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  .button:hover, .button:active, .text-link:hover svg, .button:hover svg, .media-thumbnail:hover, .media-arrow:active, .footer nav a:hover, .social-links a:hover { transform: none; }
+}
