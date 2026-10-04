@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Monitor, Code2, Workflow, Cpu, Wrench, Sparkles } from "lucide-react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import "../styles/home-redesign.css";
 import Hero from "../components/Hero";
 import ProjectCard from "../components/ProjectCard";
 import CTA from "../components/CTA";
@@ -12,8 +14,9 @@ const services = [
 ];
 const process = [["Idea", "Entendemos qué querés resolver."], ["Diseño", "Definimos cómo debería funcionar."], ["Desarrollo", "Construimos la solución."], ["Pruebas", "La ponemos a prueba, encontramos problemas y mejoramos."], ["Implementación", "La solución llega al mundo real."]];
 export default function Home() {
+  const revealRef = useScrollReveal();
   return (
-    <>
+    <div className="home-redesign" ref={revealRef}>
       <Hero />
       <section className="section container manifesto" id="manifiesto">
         <div><p className="eyebrow">01 / NUESTRA FORMA DE PENSAR</p><h2>Nos gusta<br />crear cosas<span className="spark">.</span></h2><div className="maker-symbol" aria-hidden="true"><Wrench /><span /><Code2 /><span /><Cpu /></div></div>
@@ -24,6 +27,6 @@ export default function Home() {
       <section className="process-section section"><div className="container"><p className="eyebrow">04 / CÓMO TRABAJAMOS</p><h2>De una idea a algo que funciona.</h2><ol className="process-list">{process.map(([name, description], i) => <li key={name}><span className="process-node">0{i + 1}</span><h3>{name}</h3><p>{description}</p></li>)}</ol></div></section>
       <section className="section container about" id="sobre-wuidevs"><div className="about-visual">{site.aboutPhoto ? <img src={site.aboutPhoto} alt="Espacio de trabajo de Wuidevs" loading="lazy" /> : <><div className="about-grid" aria-hidden="true" /><div className="about-mark" aria-hidden="true"><span>crear.</span><span>conectar.</span><span>resolver<span className="spark">.</span></span></div><span className="about-caption"><Sparkles size={15} /> LA CURIOSIDAD ES EL PUNTO DE PARTIDA.</span></>}</div><div><p className="eyebrow">05 / DETRÁS DE WUIDEVS</p><h2>¿Qué es Wuidevs?</h2><p className="about-lead">Wuidevs — Soluciones Tecnológicas — es un espacio dedicado al desarrollo de tecnología aplicada.</p><p>Nace de una pasión por crear, experimentar y encontrar nuevas formas de resolver problemas.</p><p>Desarrollamos proyectos propios y soluciones a medida combinando software, hardware, IoT, automatización e inteligencia artificial.</p><div className="about-signature"><span className="status-dot" /> Tecnología con propósito.</div></div></section>
       <CTA />
-    </>
+    </div>
   );
 }
