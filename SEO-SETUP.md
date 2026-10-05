@@ -13,7 +13,7 @@
 
 Configurar en Vercel y volver a desplegar:
 
-- `VITE_WHATSAPP_NUMBER`: número internacional oficial, solo dígitos. Confirmar el formato de WhatsApp del número argentino antes de publicarlo.
+- WhatsApp oficial configurado: +54 9 249 4282057. `VITE_WHATSAPP_NUMBER` permite cambiarlo opcionalmente, usando solo dígitos.
 - `VITE_GA_MEASUREMENT_ID`: ID G-... de un flujo web de Google Analytics 4.
 
 Sin número, los botones llevan a contacto por Instagram; no se generan enlaces ficticios. Sin ID de GA4, no se carga Analytics. No se creó una cuenta ni se verificó ninguna propiedad de Google.
