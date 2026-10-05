@@ -9,7 +9,7 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end start"] });
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -85]);
   const glowY = useTransform(scrollYProgress, [0, 1], [0, 140]);
-  const word = (delay: number) => ({ initial: { y: reduced ? 0 : "115%", opacity: reduced ? 1 : 0 }, animate: { y: 0, opacity: 1 }, transition: { duration: reduced ? 0 : 1.25, delay: reduced ? 0 : delay, ease: [.22, 1, .36, 1] as const } });
+  const word = (delay: number) => ({ initial: { y: reduced ? 0 : 12, opacity: 1 }, animate: { y: 0, opacity: 1 }, transition: { duration: reduced ? 0 : .6, delay: reduced ? 0 : delay, ease: [.22, 1, .36, 1] as const } });
   return (
     <section className="hero hero-editorial" id="inicio" ref={section}>
       <motion.div className="hero-glow" aria-hidden="true" style={{ y: reduced ? 0 : glowY }} />
@@ -18,9 +18,9 @@ export default function Hero() {
         <div className="hero-copy">
           <p className="eyebrow"><span className="status-dot" /> WUIDEVS / TECNOLOGÍA APLICADA</p>
           <motion.h1 style={{ y: reduced ? 0 : titleY }} aria-label="Crear. Conectar. Resolver.">
-            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(0.3)}>Crear.</motion.span></span>{" "}
-            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(0.6)}>Conectar.</motion.span></span><br />
-            <span className="hero-word-mask hero-accent" aria-hidden="true"><motion.span className="hero-word" {...word(0.9)}>Resolver.</motion.span></span>
+            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(0)}>Crear.</motion.span></span>{" "}
+            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(.08)}>Conectar.</motion.span></span><br />
+            <span className="hero-word-mask hero-accent" aria-hidden="true"><motion.span className="hero-word" {...word(.16)}>Resolver.</motion.span></span>
             <motion.span className="hero-asterisk" aria-hidden="true" animate={{ rotate: !reduced && visible ? 360 : 0 }} transition={{ duration: reduced ? 0 : 24, repeat: !reduced && visible ? Infinity : 0, ease: "linear" }}>✳</motion.span>
           </motion.h1>
           <div className="hero-intro"><p className="hero-description">Sistemas a medida para comercios y restaurantes.<br />Mantenimiento de PC en Balcarce, con retiro y entrega coordinados.</p>

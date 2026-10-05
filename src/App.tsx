@@ -99,7 +99,7 @@ export default function App() {
       <RouteEffects />
       <Navbar />
       <main id="contenido" tabIndex={-1}>
-        <motion.div className="route-surface" key={pathname} initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={{ duration: .3 }}>
+        <motion.div className="route-surface" key={pathname} initial={{ opacity: 1, y: reduced ? 0 : 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/proyectos" element={<ProjectsPage />} />
