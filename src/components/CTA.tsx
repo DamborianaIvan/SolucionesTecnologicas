@@ -1,3 +1,4 @@
+import RevealTitle from "./RevealTitle";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 export default function CTA() {
@@ -6,9 +7,7 @@ export default function CTA() {
       <div className="container cta-inner">
         <div>
           <p className="eyebrow">CONECTEMOS EL PRÓXIMO PASO</p>
-          <h2>
-            ¿Tenés una idea<span className="spark">?</span>
-          </h2>
+          <RevealTitle>¿Tenés una idea?</RevealTitle>
           <p>
             Puede ser algo que todavía no existe.
             <br />

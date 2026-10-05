@@ -28,3 +28,16 @@ html { scroll-padding-top: 108px; }
 }
 
 .scroll-progress { position: fixed; inset: 0 0 auto; height: 3px; background: var(--primary-bright, #58dec2); transform-origin: left; z-index: 1000; pointer-events: none; }
+
+/* Shared heading masks must be available on every route. */
+.motion-word-mask { display: inline-block; overflow: clip; vertical-align: bottom; padding: .12em .035em .16em; margin: -.12em -.035em -.16em; }
+.motion-word { display: inline-block; transform-origin: left bottom; }
+.page-heading .motion-title { max-width: 1000px; }
+.contact-page .motion-title { max-width: 740px; }
+.hero-glow { position: absolute; width: min(65vw, 850px); aspect-ratio: 1; right: -15%; top: -35%; border-radius: 50%; pointer-events: none; background: radial-gradient(ellipse, #138fbd40, #0961911c 40%, transparent 70%); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .service { transition: background .35s, border-color .35s, box-shadow .35s; }
+  .service:hover { background: #0b202c; border-color: #6edbff80; box-shadow: 0 14px 45px #0003; }
+  .service-icon { transition: transform .45s var(--motion-ease); }
+  .service:hover .service-icon { transform: translateY(-6px) rotate(-8deg); }
+}

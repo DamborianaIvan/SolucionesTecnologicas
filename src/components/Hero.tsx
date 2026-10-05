@@ -1,20 +1,27 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform, useInView } from "motion/react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 export default function Hero() {
   const reduced = useReducedMotion();
-  const word = (delay: number) => ({ initial: { y: reduced ? 0 : "115%", opacity: reduced ? 1 : 0 }, animate: { y: 0, opacity: 1 }, transition: { duration: reduced ? 0 : 1, delay: reduced ? 0 : delay, ease: [.22, 1, .36, 1] as const } });
+  const section = useRef<HTMLElement>(null);
+  const visible = useInView(section);
+  const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end start"] });
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, -85]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const word = (delay: number) => ({ initial: { y: reduced ? 0 : "115%", opacity: reduced ? 1 : 0 }, animate: { y: 0, opacity: 1 }, transition: { duration: reduced ? 0 : 1.25, delay: reduced ? 0 : delay, ease: [.22, 1, .36, 1] as const } });
   return (
-    <section className="hero hero-editorial" id="inicio">
+    <section className="hero hero-editorial" id="inicio" ref={section}>
+      <motion.div className="hero-glow" aria-hidden="true" style={{ y: reduced ? 0 : glowY }} />
       <div className="hero-grid" aria-hidden="true" />
       <div className="container hero-inner">
         <div className="hero-copy">
           <p className="eyebrow"><span className="status-dot" /> WUIDEVS / TECNOLOGÍA APLICADA</p>
-          <h1 aria-label="Crear. Conectar. Resolver.">
-            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(0.15)}>Crear.</motion.span></span>{" "}
-            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(0.35)}>Conectar.</motion.span></span><br />
-            <span className="hero-word-mask hero-accent" aria-hidden="true"><motion.span className="hero-word" {...word(0.55)}>Resolver.</motion.span></span>
-            <span className="hero-asterisk" aria-hidden="true">✳</span>
-          </h1>
+          <motion.h1 style={{ y: reduced ? 0 : titleY }} aria-label="Crear. Conectar. Resolver.">
+            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(0.3)}>Crear.</motion.span></span>{" "}
+            <span className="hero-word-mask" aria-hidden="true"><motion.span className="hero-word" {...word(0.6)}>Conectar.</motion.span></span><br />
+            <span className="hero-word-mask hero-accent" aria-hidden="true"><motion.span className="hero-word" {...word(0.9)}>Resolver.</motion.span></span>
+            <motion.span className="hero-asterisk" aria-hidden="true" animate={{ rotate: !reduced && visible ? 360 : 0 }} transition={{ duration: reduced ? 0 : 24, repeat: !reduced && visible ? Infinity : 0, ease: "linear" }}>✳</motion.span>
+          </motion.h1>
           <div className="hero-intro"><p className="hero-description">Tecnología que funciona. Soluciones que sirven.<br />Informática, desarrollo e IoT para problemas reales.</p>
             <a className="button" href="#proyectos">Explorá los proyectos <ArrowUpRight size={20} /></a>
           </div>

@@ -1,3 +1,4 @@
+import RevealTitle from "../components/RevealTitle";
 import { Mail, MessageCircle, Instagram, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { site } from "../config/site";
@@ -5,7 +6,7 @@ export default function Contact() {
   return (
     <section className="container section contact-page">
       <p className="eyebrow"><span className="status-dot" /> WUIDEVS / CONTACTO</p>
-      <h1>Contanos<br />tu idea<span className="spark">.</span></h1>
+      <RevealTitle as="h1">Contanos tu idea.</RevealTitle>
       <p className="contact-lead">Puede ser algo que todavía no existe.<br />Puede ser un problema que todavía no encontraste cómo resolver.</p>
       <p className="contact-invite">Hablemos.</p>
       <div className="contact-options">

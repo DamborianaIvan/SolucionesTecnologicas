@@ -10,7 +10,7 @@ export function usePageMotion(pathname: string) {
     if (!root || reduced) return;
     const blocks = ".service, .process-list > li, .about-visual, .architecture-card, .contact-options article, .rb-project-row";
     const targets = [...root.querySelectorAll<HTMLElement>(`${blocks}, h1, h2, h3, p, .projects-more, .about-signature, .cta-inner strong, .cta-button`) ].filter(el =>
-      !el.matches(".rb-scroll-title, .hero-editorial h1") && !el.parentElement?.closest(`${blocks}, .projects-more`));
+      !el.matches(".motion-title, .hero-editorial h1") && !el.parentElement?.closest(`${blocks}, .projects-more`));
     const cleanups: (() => void)[] = [];
     const reveals = new Map<HTMLElement, () => void>();
     targets.forEach(el => {
@@ -22,9 +22,9 @@ export function usePageMotion(pathname: string) {
       const restore = () => { playback?.stop(); el.style.opacity = original.opacity; el.style.transform = original.transform; };
       const stop = inView(el, () => {
         const siblings = el.parentElement ? [...el.parentElement.children].filter(child => targets.includes(child as HTMLElement)) : [];
-        playback = animate(el, { opacity: 1, y: 0 }, { duration: .85, delay: Math.min(Math.max(siblings.indexOf(el), 0), 3) * .12, ease: [.22, 1, .36, 1] });
+        playback = animate(el, { opacity: [0, 1], transform: ["translateY(48px)", "translateY(0px)"] }, { duration: 1, delay: Math.min(Math.max(siblings.indexOf(el), 0), 3) * .12, ease: [.22, 1, .36, 1] });
         playback.then(() => { restore(); reveals.delete(el); });
-      }, { margin: "0px 0px -7% 0px" });
+      }, { margin: "0px 0px -18% 0px" });
       reveals.set(el, () => { stop(); restore(); });
       cleanups.push(() => { stop(); restore(); });
     });

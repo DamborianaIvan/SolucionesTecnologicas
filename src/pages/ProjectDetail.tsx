@@ -1,3 +1,4 @@
+import RevealTitle from "../components/RevealTitle";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -100,7 +101,7 @@ export default function ProjectDetailPage() {
           <p className="eyebrow">
             WUIDEVS / {project.type === "project" ? "PROYECTO INTERNO" : "WEB APP"}
           </p>
-          <h1>{project.title}</h1>
+          <RevealTitle as="h1">{project.title}</RevealTitle>
           <p>{project.description}</p>
           <div className="tags">
             {project.tags.map((t) => (
@@ -128,7 +129,7 @@ export default function ProjectDetailPage() {
           <div>
             {detailSections.map(([id, title, body]) => (
               <section id={id} key={id} className="detail-section">
-                <h2>{title}</h2>
+                <RevealTitle>{title}</RevealTitle>
                 <p className={body ? "" : "placeholder"}>
                   {body || "Información pendiente de incorporar."}
                 </p>
