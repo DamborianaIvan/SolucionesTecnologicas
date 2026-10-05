@@ -1,6 +1,6 @@
 declare global { interface Window { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void; } }
 export function initializeAnalytics() {
-  const id = import.meta.env.VITE_GA_MEASUREMENT_ID;
+  const id = import.meta.env.VITE_GA_MEASUREMENT_ID || "G-N4MCNYMPV7";
   if (!/^G-[A-Z0-9]+$/.test(id || "") || window.gtag) return;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { window.dataLayer!.push(arguments); };
