@@ -148,3 +148,20 @@
   .related-project { padding: 22px; }
   .detail-links { flex-direction: column; gap: 16px; }
 }
+
+.media-expand { position: relative; display: block; width: 100%; height: 100%; min-height: 0; min-width: 0; padding: 0; border: 0; border-radius: 9px; background: transparent; cursor: zoom-in; }
+.media-expand-hint { position: absolute; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid #87d9ff55; border-radius: 8px; background: #04101deb; color: #e9f7ff; font-size: 12px; }
+.media-expand:focus-visible { outline: 2px solid var(--primary-bright); outline-offset: 3px; }
+.image-viewer { position: fixed; inset: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; color: #e9f7ff; background: #02070c; }
+.image-viewer::backdrop { background: #02070c; }
+.image-viewer-layout { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+.image-viewer-toolbar, .image-viewer-controls { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #081521; }
+.image-viewer-toolbar > span { margin-right: auto; font-size: 13px; }
+.image-viewer button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; min-height: 44px; padding: 8px; border: 1px solid #35536a; border-radius: 8px; background: #102632; color: #e9f7ff; cursor: pointer; }
+.image-viewer button:focus-visible { outline: 2px solid #91e7ff; outline-offset: 2px; }
+.image-viewer button:disabled { opacity: .35; cursor: default; }
+.image-viewer-viewport { min-height: 0; min-width: 0; overflow: auto; overscroll-behavior: contain; touch-action: pan-x pan-y pinch-zoom; }
+.image-viewer-canvas { width: 100%; height: 100%; }
+.image-viewer-canvas.is-zoomed { width: 250%; height: 250%; }
+.image-viewer-canvas img { display: block; width: 100%; height: 100%; max-width: none; object-fit: contain; }
+.image-viewer-controls p { flex: 1; margin: 0; text-align: center; font-size: 12px; line-height: 1.4; max-height: 4.2em; overflow: auto; }

@@ -1,8 +1,9 @@
+import ImageViewer from "../components/ImageViewer";
 import RevealTitle from "../components/RevealTitle";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Film, Layers3 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Film, Layers3, Maximize2 } from "lucide-react";
 import { projects, type Project } from "../data/projects";
 import CTA from "../components/CTA";
 import "../styles/project-detail.css";
@@ -10,6 +11,7 @@ import "../styles/project-detail.css";
 function ProjectMedia({ project }: { project: Project }) {
   const reduced = useReducedMotion();
   const [selected, setSelected] = useState(0);
+  const [viewerOpen, setViewerOpen] = useState(false);
   const media: { src: string; alt: string; caption: string; kind: "image" | "video"; orientation?: "portrait"; poster?: string }[] = [
     { src: project.image, alt: `Vista general de ${project.title}`, caption: "Vista general", kind: "image" as const, orientation: project.imageOrientation },
     ...(project.gallery ?? []).map((item) => ({
@@ -36,7 +38,10 @@ function ProjectMedia({ project }: { project: Project }) {
           {active.kind === "video" ? (
             <motion.video initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={{ duration: .4 }} key={active.src} controls preload="metadata" playsInline poster={active.poster} aria-label={active.alt} src={active.src} />
           ) : (
+            <button className="media-expand" type="button" onClick={() => setViewerOpen(true)} aria-label={`Abrir ${active.caption} en pantalla completa`}>
             <motion.img initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .4 }} key={active.src} src={active.src} alt={active.alt} />
+            <span className="media-expand-hint"><Maximize2 size={18} /> Ampliar captura</span>
+            </button>
           )}
         </div>
         <figcaption aria-live="polite">{active.caption}</figcaption>
@@ -65,6 +70,11 @@ function ProjectMedia({ project }: { project: Project }) {
           <button className="media-arrow" type="button" onClick={() => setSelected((selected + 1) % media.length)} aria-label="Ver elemento siguiente"><ChevronRight size={22} /></button>
         </div>
       )}
+      {viewerOpen && active.kind === "image" && <ImageViewer
+        images={media.filter(item => item.kind === "image")}
+        initialIndex={media.filter(item => item.kind === "image").findIndex(item => item.src === active.src)}
+        onClose={() => setViewerOpen(false)}
+      />}
     </section>
   );
 }
