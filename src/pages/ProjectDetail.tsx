@@ -1,3 +1,5 @@
+import RevealTitle from "../components/RevealTitle";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Film, Layers3 } from "lucide-react";
@@ -6,6 +8,7 @@ import CTA from "../components/CTA";
 import "../styles/project-detail.css";
 
 function ProjectMedia({ project }: { project: Project }) {
+  const reduced = useReducedMotion();
   const [selected, setSelected] = useState(0);
   const media: { src: string; alt: string; caption: string; kind: "image" | "video"; orientation?: "portrait"; poster?: string }[] = [
     { src: project.image, alt: `Vista general de ${project.title}`, caption: "Vista general", kind: "image" as const, orientation: project.imageOrientation },
@@ -31,9 +34,9 @@ function ProjectMedia({ project }: { project: Project }) {
       <figure className="media-feature">
         <div className={`media-feature-frame${active.orientation === "portrait" ? " is-portrait" : ""}`}>
           {active.kind === "video" ? (
-            <video key={active.src} controls preload="metadata" playsInline poster={active.poster} aria-label={active.alt} src={active.src} />
+            <motion.video initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={{ duration: .4 }} key={active.src} controls preload="metadata" playsInline poster={active.poster} aria-label={active.alt} src={active.src} />
           ) : (
-            <img key={active.src} src={active.src} alt={active.alt} />
+            <motion.img initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .4 }} key={active.src} src={active.src} alt={active.alt} />
           )}
         </div>
         <figcaption aria-live="polite">{active.caption}</figcaption>
@@ -98,7 +101,7 @@ export default function ProjectDetailPage() {
           <p className="eyebrow">
             WUIDEVS / {project.type === "project" ? "PROYECTO INTERNO" : "WEB APP"}
           </p>
-          <h1>{project.title}</h1>
+          <RevealTitle as="h1">{project.title}</RevealTitle>
           <p>{project.description}</p>
           <div className="tags">
             {project.tags.map((t) => (
@@ -126,7 +129,7 @@ export default function ProjectDetailPage() {
           <div>
             {detailSections.map(([id, title, body]) => (
               <section id={id} key={id} className="detail-section">
-                <h2>{title}</h2>
+                <RevealTitle>{title}</RevealTitle>
                 <p className={body ? "" : "placeholder"}>
                   {body || "Información pendiente de incorporar."}
                 </p>

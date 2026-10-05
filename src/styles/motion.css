@@ -1,0 +1,43 @@
+/* Shared motion language. Native scrolling remains under the visitor's control. */
+:root { --motion-ease: cubic-bezier(.22,1,.36,1); }
+html { scroll-padding-top: 108px; }
+.nav-links a { position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: 5px; left: 0; right: 0; height: 1px; background: var(--primary-bright); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--motion-ease); }
+.nav-links a:hover::after, .nav-links a:focus-visible::after, .nav-links a[aria-current]::after { transform: scaleX(1); }
+.button, .media-arrow, .media-thumbnail, .contact-options article, .architecture-card { transition: transform .3s var(--motion-ease), border-color .3s, background-color .3s, box-shadow .3s; }
+.button svg, .text-link svg, .footer nav a, .social-links a { transition: transform .3s var(--motion-ease), color .3s; }
+.text-link:hover svg, .text-link:focus-visible svg { transform: translateX(4px); }
+.back-link:hover svg { transform: translateX(-4px); }
+.button:hover svg { transform: translate(2px,-2px); }
+.button:active, .media-arrow:active { transform: scale(.97); }
+.contact-options article:hover, .architecture-card:hover { border-color: var(--line-strong); background-color: #0b1c2a; }
+.media-thumbnail:hover { transform: translateY(-3px); }
+.footer nav a:hover, .social-links a:hover { transform: translateX(4px); }
+@media(prefers-reduced-motion:no-preference) {
+
+
+  .nav-links.is-open { animation: menu-enter .22s ease-out; }
+  @keyframes page-enter { from { opacity: .25; } to { opacity: 1; } }
+  @keyframes media-enter { from { opacity: .3; } to { opacity: 1; } }
+  @keyframes menu-enter { from { opacity: 0; translate: 0 -8px; } to { opacity: 1; translate: 0 0; } }
+}
+@media(max-width:820px) { html { scroll-padding-top: 94px; } }
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  .button:hover, .button:active, .text-link:hover svg, .button:hover svg, .media-thumbnail:hover, .media-arrow:active, .footer nav a:hover, .social-links a:hover { transform: none; }
+}
+
+.scroll-progress { position: fixed; inset: 0 0 auto; height: 3px; background: var(--primary-bright, #58dec2); transform-origin: left; z-index: 1000; pointer-events: none; }
+
+/* Shared heading masks must be available on every route. */
+.motion-word-mask { display: inline-block; overflow: clip; vertical-align: bottom; padding: .12em .035em .16em; margin: -.12em -.035em -.16em; }
+.motion-word { display: inline-block; transform-origin: left bottom; }
+.page-heading .motion-title { max-width: 1000px; }
+.contact-page .motion-title { max-width: 740px; }
+.hero-glow { position: absolute; width: min(65vw, 850px); aspect-ratio: 1; right: -15%; top: -35%; border-radius: 50%; pointer-events: none; background: radial-gradient(ellipse, #138fbd40, #0961911c 40%, transparent 70%); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .service { transition: background .35s, border-color .35s, box-shadow .35s; }
+  .service:hover { background: #0b202c; border-color: #6edbff80; box-shadow: 0 14px 45px #0003; }
+  .service-icon { transition: transform .45s var(--motion-ease); }
+  .service:hover .service-icon { transform: translateY(-6px) rotate(-8deg); }
+}

@@ -1,13 +1,51 @@
-import { useEffect } from "react";
-import { Routes, Route, useLocation, Link } from "react-router-dom";
+import { motion, MotionConfig, useReducedMotion, useScroll, useSpring } from "motion/react";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { Routes, Route, useLocation, useNavigationType, Link } from "react-router-dom";
 import { Navbar, Footer } from "./components/Layout";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import { projects } from "./data/projects";
+import { scrollToSection } from "./components/SectionLink";
+import { usePageMotion } from "./hooks/usePageMotion";
+import "./styles/motion.css";
+
 function RouteEffects() {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, key } = useLocation();
+  const navigationType = useNavigationType();
+  const positions = useRef(new Map<string, number>());
+  const previousPath = useRef(pathname);
+  const firstVisit = useRef(true);
+  usePageMotion(pathname);
+  useEffect(() => {
+    const previous = history.scrollRestoration;
+    history.scrollRestoration = "manual";
+    return () => { history.scrollRestoration = previous; };
+  }, []);
+  useLayoutEffect(() => {
+    const changedPage = previousPath.current !== pathname;
+    const initial = firstVisit.current;
+    previousPath.current = pathname;
+    firstVisit.current = false;
+    if (changedPage) document.getElementById("contenido")?.focus({ preventScroll: true });
+    let applied = false;
+    const frame = requestAnimationFrame(() => {
+      applied = true;
+      const savedPosition = positions.current.get(key);
+      if (navigationType === "POP" && savedPosition !== undefined) {
+        window.scrollTo({ top: savedPosition, behavior: "instant" });
+      } else if (hash) {
+        scrollToSection(hash);
+      } else if (changedPage || initial) {
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      if (applied) positions.current.set(key, window.scrollY);
+    };
+  }, [pathname, hash, key, navigationType]);
   useEffect(() => {
     const project = projects.find((p) => p.href === pathname);
     const label =
@@ -31,25 +69,28 @@ function RouteEffects() {
     document
       .querySelector('meta[property="og:description"]')
       ?.setAttribute("content", description);
-    if (hash) {
-      requestAnimationFrame(() =>
-        document.getElementById(hash.slice(1))?.scrollIntoView(),
-      );
-    } else {
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
   }, [pathname, hash]);
   return null;
 }
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 160, damping: 30 });
+  const reduced = useReducedMotion();
+  return <motion.div aria-hidden="true" className="scroll-progress" style={{ scaleX: reduced ? scrollYProgress : scaleX }} />;
+}
 export default function App() {
+  const { pathname } = useLocation();
+  const reduced = useReducedMotion();
   return (
-    <>
+    <MotionConfig reducedMotion="user">
+      <ScrollProgress />
       <a className="skip-link" href="#contenido">
         Ir al contenido
       </a>
       <RouteEffects />
       <Navbar />
       <main id="contenido" tabIndex={-1}>
+        <motion.div className="route-surface" key={pathname} initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={{ duration: .3 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/proyectos" element={<ProjectsPage />} />
@@ -68,8 +109,9 @@ export default function App() {
             }
           />
         </Routes>
+        </motion.div>
       </main>
       <Footer />
-    </>
+    </MotionConfig>
   );
 }
