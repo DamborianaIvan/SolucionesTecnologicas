@@ -1,23 +1,19 @@
 import RevealTitle from "./RevealTitle";
-import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import ContactAction from "./ContactAction";
 export default function CTA() {
   return (
     <section className="cta">
       <div className="container cta-inner">
         <div>
-          <p className="eyebrow">CONECTEMOS EL PRÓXIMO PASO</p>
-          <RevealTitle>¿Tenés una idea?</RevealTitle>
-          <p>
-            Puede ser algo que todavía no existe.
-            <br />
-            Puede ser un problema que todavía no encontraste cómo resolver.
-          </p>
-          <strong>Hablemos.</strong>
+          <p className="eyebrow">HABLEMOS DE LO QUE NECESITÁS RESOLVER</p>
+          <RevealTitle>Tu negocio. Tu sistema.</RevealTitle>
+          <p>Contanos qué proceso querés organizar o automatizar.<br />¿Tu PC necesita atención? También podemos ayudarte con software y hardware en Balcarce.</p>
+          <strong>Coordinamos el próximo paso con vos.</strong>
         </div>
-        <Link className="button cta-button" to="/contacto">
-          Contanos tu idea <ArrowUpRight size={20} />
-        </Link>
+        <div className="service-actions">
+          <ContactAction service="sistemas" location="footer_cta">Consultar por un sistema</ContactAction>
+          <ContactAction service="pc" location="footer_cta">Consultar por mi PC</ContactAction>
+        </div>
       </div>
       <div className="cta-track" aria-hidden="true" />
     </section>
