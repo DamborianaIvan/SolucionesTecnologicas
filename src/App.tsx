@@ -2,6 +2,9 @@ import { motion, MotionConfig, useReducedMotion, useScroll, useSpring } from "mo
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Routes, Route, useLocation, useNavigationType, Link } from "react-router-dom";
 import { Navbar, Footer } from "./components/Layout";
+import Service from "./pages/Service";
+import { services } from "./data/services";
+import { track, trackPage } from "./lib/analytics";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetail";
@@ -48,6 +51,7 @@ function RouteEffects() {
   }, [pathname, hash, key, navigationType]);
   useEffect(() => {
     const project = projects.find((p) => p.href === pathname);
+    const service = services.find(s => pathname === `/servicios/${s.slug}`);
     const label =
       project?.title ||
       (pathname === "/contacto"
@@ -56,10 +60,10 @@ function RouteEffects() {
           ? "Proyectos"
           : "");
     document.title =
-      (label ? label + " | " : "") + "Wuidevs — Soluciones Tecnológicas";
+      service?.title || (pathname === "/" ? "Wuidevs | Sistemas a medida y mantenimiento PC en Balcarce" : (label ? label + " | " : "") + "Wuidevs — Soluciones Tecnológicas");
     const description =
-      project?.description ||
-      "Informática, desarrollo e IoT para resolver problemas reales.";
+      service?.description || project?.description ||
+      "Sistemas a medida para comercios y restaurantes. Mantenimiento de PC en Balcarce con retiro y entrega coordinados.";
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute("content", description);
@@ -69,7 +73,12 @@ function RouteEffects() {
     document
       .querySelector('meta[property="og:description"]')
       ?.setAttribute("content", description);
-  }, [pathname, hash]);
+    const canonical = document.querySelector('link[rel="canonical"]') || document.head.appendChild(document.createElement("link"));
+    canonical.setAttribute("rel", "canonical");
+    canonical.setAttribute("href", "https://wuidevs-stecnologicas.vercel.app" + pathname);
+    trackPage(pathname);
+    if (service) track("view_service", { service: service.key });
+  }, [pathname]);
   return null;
 }
 function ScrollProgress() {
@@ -96,6 +105,7 @@ export default function App() {
           <Route path="/proyectos" element={<ProjectsPage />} />
           <Route path="/proyectos/:slug" element={<ProjectDetailPage />} />
           <Route path="/contacto" element={<Contact />} />
+          <Route path="/servicios/:slug" element={<Service />} />
           <Route
             path="*"
             element={

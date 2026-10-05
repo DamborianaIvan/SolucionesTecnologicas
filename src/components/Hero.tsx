@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, useInView } from "motion/react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
+import ContactAction from "./ContactAction";
 export default function Hero() {
   const reduced = useReducedMotion();
   const section = useRef<HTMLElement>(null);
@@ -22,8 +23,8 @@ export default function Hero() {
             <span className="hero-word-mask hero-accent" aria-hidden="true"><motion.span className="hero-word" {...word(0.9)}>Resolver.</motion.span></span>
             <motion.span className="hero-asterisk" aria-hidden="true" animate={{ rotate: !reduced && visible ? 360 : 0 }} transition={{ duration: reduced ? 0 : 24, repeat: !reduced && visible ? Infinity : 0, ease: "linear" }}>✳</motion.span>
           </motion.h1>
-          <div className="hero-intro"><p className="hero-description">Tecnología que funciona. Soluciones que sirven.<br />Informática, desarrollo e IoT para problemas reales.</p>
-            <a className="button" href="#proyectos">Explorá los proyectos <ArrowUpRight size={20} /></a>
+          <div className="hero-intro"><p className="hero-description">Sistemas a medida para comercios y restaurantes.<br />Mantenimiento de PC en Balcarce, con retiro y entrega coordinados.</p>
+            <div className="service-actions"><ContactAction service="sistemas" location="hero">Consultar por un sistema <ArrowUpRight size={20} /></ContactAction><ContactAction service="pc" location="hero">Consultar por mi PC</ContactAction></div>
           </div>
         </div>
         <div className="hero-bottom"><span>SOFTWARE / HARDWARE / IOT</span><a href="#manifiesto">Seguí explorando <ArrowDown size={16} /></a></div>
