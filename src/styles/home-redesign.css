@@ -3,7 +3,7 @@
 .hero-editorial .hero-inner { display: block; min-height: auto; padding-top: 100px; }
 .hero-editorial .hero-grid { opacity: .2; background-size: 90px 90px; mask-image: linear-gradient(90deg,transparent,#000); }
 .hero-editorial h1 { max-width: none; font-size: clamp(60px,8.8vw,125px); line-height: 1.02; letter-spacing: -.065em; margin-block: 35px 45px; }
-.hero-editorial h1>span:first-of-type { background: none; -webkit-text-fill-color: #91e7ff; color: #91e7ff; }
+.hero-editorial h1 .hero-accent { background: none; -webkit-text-fill-color: #91e7ff; color: #91e7ff; }
 .hero-editorial h1 .hero-asterisk { display: inline-block; margin-left: .25em; font-size: .7em; vertical-align: middle; color: #91e7ff; -webkit-text-fill-color: currentColor; background: none; }
 .hero-intro { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
 .hero-editorial .hero-bottom { margin-top: 80px; padding-block: 24px; }
@@ -34,3 +34,9 @@
   .hero-editorial .hero-bottom { font-size: 8px; }
   .hero-editorial .hero-bottom a { font-size: 10px; }
 }
+
+/* Masks give the large typography a visible, word-by-word entrance. */
+.hero-editorial .hero-copy { animation: none; }
+.hero-editorial h1 > .hero-word-mask { display: inline-block; overflow: clip; vertical-align: bottom; padding-bottom: .12em; margin-bottom: -.12em; background: none; -webkit-text-fill-color: currentColor; }
+.hero-word { display: inline-block; }
+.rb-word-mask { display: inline-block; overflow: clip; vertical-align: bottom; padding-bottom: .14em; margin-bottom: -.14em; }

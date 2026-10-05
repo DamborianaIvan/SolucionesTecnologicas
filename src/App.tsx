@@ -1,3 +1,4 @@
+import { motion, MotionConfig, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Routes, Route, useLocation, useNavigationType, Link } from "react-router-dom";
 import { Navbar, Footer } from "./components/Layout";
@@ -71,17 +72,25 @@ function RouteEffects() {
   }, [pathname, hash]);
   return null;
 }
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 160, damping: 30 });
+  const reduced = useReducedMotion();
+  return <motion.div aria-hidden="true" className="scroll-progress" style={{ scaleX: reduced ? scrollYProgress : scaleX }} />;
+}
 export default function App() {
   const { pathname } = useLocation();
+  const reduced = useReducedMotion();
   return (
-    <>
+    <MotionConfig reducedMotion="user">
+      <ScrollProgress />
       <a className="skip-link" href="#contenido">
         Ir al contenido
       </a>
       <RouteEffects />
       <Navbar />
       <main id="contenido" tabIndex={-1}>
-        <div className="route-surface" key={pathname}>
+        <motion.div className="route-surface" key={pathname} initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={{ duration: .3 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/proyectos" element={<ProjectsPage />} />
@@ -100,9 +109,9 @@ export default function App() {
             }
           />
         </Routes>
-        </div>
+        </motion.div>
       </main>
       <Footer />
-    </>
+    </MotionConfig>
   );
 }

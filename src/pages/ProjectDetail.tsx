@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Film, Layers3 } from "lucide-react";
@@ -6,6 +7,7 @@ import CTA from "../components/CTA";
 import "../styles/project-detail.css";
 
 function ProjectMedia({ project }: { project: Project }) {
+  const reduced = useReducedMotion();
   const [selected, setSelected] = useState(0);
   const media: { src: string; alt: string; caption: string; kind: "image" | "video"; orientation?: "portrait"; poster?: string }[] = [
     { src: project.image, alt: `Vista general de ${project.title}`, caption: "Vista general", kind: "image" as const, orientation: project.imageOrientation },
@@ -31,9 +33,9 @@ function ProjectMedia({ project }: { project: Project }) {
       <figure className="media-feature">
         <div className={`media-feature-frame${active.orientation === "portrait" ? " is-portrait" : ""}`}>
           {active.kind === "video" ? (
-            <video key={active.src} controls preload="metadata" playsInline poster={active.poster} aria-label={active.alt} src={active.src} />
+            <motion.video initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={{ duration: .4 }} key={active.src} controls preload="metadata" playsInline poster={active.poster} aria-label={active.alt} src={active.src} />
           ) : (
-            <img key={active.src} src={active.src} alt={active.alt} />
+            <motion.img initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .4 }} key={active.src} src={active.src} alt={active.alt} />
           )}
         </div>
         <figcaption aria-live="polite">{active.caption}</figcaption>

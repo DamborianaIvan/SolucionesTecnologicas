@@ -14,8 +14,8 @@ html { scroll-padding-top: 108px; }
 .media-thumbnail:hover { transform: translateY(-3px); }
 .footer nav a:hover, .social-links a:hover { transform: translateX(4px); }
 @media(prefers-reduced-motion:no-preference) {
-  .route-surface { animation: page-enter .4s ease-out; }
-  .media-feature-frame>img, .media-feature-frame>video { animation: media-enter .35s ease-out; }
+
+
   .nav-links.is-open { animation: menu-enter .22s ease-out; }
   @keyframes page-enter { from { opacity: .25; } to { opacity: 1; } }
   @keyframes media-enter { from { opacity: .3; } to { opacity: 1; } }
@@ -26,3 +26,5 @@ html { scroll-padding-top: 108px; }
   html { scroll-behavior: auto; }
   .button:hover, .button:active, .text-link:hover svg, .button:hover svg, .media-thumbnail:hover, .media-arrow:active, .footer nav a:hover, .social-links a:hover { transform: none; }
 }
+
+.scroll-progress { position: fixed; inset: 0 0 auto; height: 3px; background: var(--primary-bright, #58dec2); transform-origin: left; z-index: 1000; pointer-events: none; }

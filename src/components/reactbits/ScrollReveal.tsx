@@ -1,31 +1,13 @@
-// Adapted from DavidHDev/react-bits, ScrollReveal (TS-CSS). See LICENSE.md.
-// Scoped cleanup, semantic headings and reduced-motion support added for Wuidevs.
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, useReducedMotion } from "motion/react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-export default function ScrollReveal({ children, className = "" }: {
-  children: string;
-  className?: string;
-}) {
-  const ref = useRef<HTMLHeadingElement>(null);
-  useEffect(() => {
-    const media = gsap.matchMedia();
-    media.add("(prefers-reduced-motion: no-preference)", () => {
-      const words = ref.current?.querySelectorAll(".rb-word");
-      if (!words?.length) return;
-      gsap.fromTo(words, { opacity: 0, y: 14 }, {
-        opacity: 1, y: 0, duration: .65, stagger: .06, ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 92%", once: true },
-      });
-    }, ref);
-    return () => media.revert();
-  }, [children]);
-  return <h2 ref={ref} className={`rb-scroll-title ${className}`} aria-label={children}>
+export default function ScrollReveal({ children, className = "" }: { children: string; className?: string }) {
+  const reduced = useReducedMotion();
+  return <motion.h2 className={`rb-scroll-title ${className}`} aria-label={children}
+    initial="hidden" whileInView="visible" animate={reduced ? "visible" : undefined} viewport={{ once: true, amount: .25 }}>
     <span aria-hidden="true">{children.split(/(\s+)/).map((word, index) =>
-      /^\s+$/.test(word) ? word : <span className="rb-word" key={index}>{word}</span>
+      /^\s+$/.test(word) ? word : <span className="rb-word-mask" key={index}><motion.span className="rb-word"
+        variants={{ hidden: { y: reduced ? 0 : "105%", opacity: reduced ? 1 : 0 }, visible: { y: 0, opacity: 1 } }}
+        transition={{ duration: reduced ? 0 : .8, delay: reduced ? 0 : index * .045, ease: [.22, 1, .36, 1] }}>{word}</motion.span></span>
     )}</span>
-  </h2>;
+  </motion.h2>;
 }

@@ -1,9 +1,10 @@
 // Adapted from DavidHDev/react-bits, FlowingMenu (TS-CSS). See LICENSE.md.
-// Image-free project rows, router links, keyboard/touch support and scoped GSAP cleanup.
+// Image-free project rows, router links, keyboard/touch support and Motion hover transitions.
 import { useEffect, useRef, type MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { gsap } from "gsap";
+import { animate } from "motion";
+import { useReducedMotion } from "motion/react";
 import type { Project } from "../../data/projects";
 import "./FlowingMenu.css";
 
@@ -17,35 +18,18 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   const row = useRef<HTMLLIElement>(null);
   const overlay = useRef<HTMLSpanElement>(null);
   const track = useRef<HTMLSpanElement>(null);
-  const tween = useRef<gsap.core.Timeline | null>(null);
-  const enabled = useRef(false);
-  useEffect(() => {
-    const media = gsap.matchMedia();
-    media.add("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
-      enabled.current = true;
-      return () => {
-        enabled.current = false;
-        tween.current?.kill();
-        gsap.set([overlay.current, track.current], { clearProps: "transform" });
-      };
-    }, row);
-    return () => { tween.current?.kill(); media.revert(); };
-  }, []);
-  const animate = (event: MouseEvent<HTMLAnchorElement>, entering: boolean) => {
-    if (!enabled.current || !row.current) return;
+  const reduced = useReducedMotion();
+  const controls = useRef<ReturnType<typeof animate>[]>([]);
+  useEffect(() => () => controls.current.forEach(control => control.stop()), []);
+  const run = (event: MouseEvent<HTMLAnchorElement>, entering: boolean) => {
+    if (reduced || !window.matchMedia("(hover: hover) and (pointer: fine)").matches || !row.current || !overlay.current || !track.current) return;
     const bounds = row.current.getBoundingClientRect();
     const direction = event.clientY - bounds.top < bounds.height / 2 ? -101 : 101;
-    tween.current?.kill();
-    const timeline = gsap.timeline({ defaults: { duration: .45, ease: "expo.out" } });
-    tween.current = timeline;
-    if (entering) {
-      timeline.set(overlay.current, { yPercent: direction, y: 0 })
-        .set(track.current, { yPercent: -direction, y: 0 })
-        .to([overlay.current, track.current], { yPercent: 0 }, 0);
-    } else {
-      timeline.to(overlay.current, { yPercent: direction }, 0)
-        .to(track.current, { yPercent: -direction }, 0);
-    }
+    controls.current.forEach(control => control.stop());
+    controls.current = [
+      animate(overlay.current, { y: entering ? [`${direction}%`, "0%"] : `${direction}%` }, { duration: .45, ease: [.22, 1, .36, 1] }),
+      animate(track.current, { y: entering ? [`${-direction}%`, "0%"] : `${-direction}%` }, { duration: .45, ease: [.22, 1, .36, 1] }),
+    ];
   };
   const content = <>
     <span className="rb-project-number">{String(index + 1).padStart(2, "0")}</span>
@@ -64,8 +48,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   </>;
   const props = {
     className: "rb-project-link",
-    onMouseEnter: (event: MouseEvent<HTMLAnchorElement>) => animate(event, true),
-    onMouseLeave: (event: MouseEvent<HTMLAnchorElement>) => animate(event, false),
+    onMouseEnter: (event: MouseEvent<HTMLAnchorElement>) => run(event, true),
+    onMouseLeave: (event: MouseEvent<HTMLAnchorElement>) => run(event, false),
   };
   return <li ref={row} className="rb-project-row">
     {!project.href ? <div className="rb-project-link">{content}</div> : project.external ?

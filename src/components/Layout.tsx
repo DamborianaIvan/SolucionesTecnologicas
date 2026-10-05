@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowUpRight } from "lucide-react";
@@ -11,6 +12,7 @@ const nav = [
   ["Contacto", "/contacto"],
 ];
 export function Navbar() {
+  const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -46,17 +48,18 @@ export function Navbar() {
           ))}
         </nav>
         <Link className="button nav-cta" to="/contacto">Hablemos <ArrowUpRight size={17} /></Link>
-        <button id="menu-toggle" className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? "Cerrar menú" : "Abrir menú"} aria-expanded={open} aria-controls="main-nav">
+        <motion.button whileTap={reduced ? undefined : { scale: .9 }} id="menu-toggle" className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? "Cerrar menú" : "Abrir menú"} aria-expanded={open} aria-controls="main-nav">
           {open ? <X /> : <Menu />}
-        </button>
+        </motion.button>
       </div>
     </header>
   );
 }
 export function Footer() {
+  const reduced = useReducedMotion();
   return (
     <footer className="footer">
-      <div className="container footer-top">
+      <motion.div className="container footer-top" initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 24 }} whileInView={{ opacity: 1, y: 0 }} animate={reduced ? { opacity: 1, y: 0 } : undefined} viewport={{ once: true }} transition={{ duration: .6 }}>
         <div>
           <Link className="footer-brand" to="/"><img src="/logo.png" alt="" width="66" height="66" /><span>WUIDEVS<small>Soluciones tecnológicas</small></span></Link>
           <p className="muted">Tecnología que funciona.<br />Soluciones que sirven.</p>
@@ -70,7 +73,7 @@ export function Footer() {
             <a key={name} href={url!} target="_blank" rel="noopener noreferrer">{name} ↗</a>
           ))}
         </div>
-      </div>
+      </motion.div>
       <div className="container footer-bottom">
         <span>© 2026 Wuidevs — Soluciones Tecnológicas</span>
         <span>Hecho con curiosidad. Y tecnología. <span className="spark">✦</span></span>

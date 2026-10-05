@@ -1,75 +1,39 @@
 import { useLayoutEffect } from "react";
+import { animate, inView } from "motion";
+import { useReducedMotion } from "motion/react";
 
-/** One entry per element, with visible content as the no-animation fallback. */
+/** Scoped Motion reveals; focus and reduced motion always reveal content immediately. */
 export function usePageMotion(pathname: string) {
+  const reduced = useReducedMotion();
   useLayoutEffect(() => {
     const root = document.querySelector(".route-surface");
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!root || preference.matches || !("IntersectionObserver" in window) ||
-        !("animate" in Element.prototype)) return;
-
-    // Animate cards as units: their text must not receive a second animation.
+    if (!root || reduced) return;
     const blocks = ".service, .process-list > li, .about-visual, .architecture-card, .contact-options article, .rb-project-row";
-    const candidates = root.querySelectorAll<HTMLElement>(
-      `${blocks}, h1, h2, h3, p, .projects-more, .about-signature, .cta-inner strong, .cta-button`,
-    );
-    const targets = [...candidates].filter(element =>
-      !element.matches(".rb-scroll-title") &&
-      !element.parentElement?.closest(blocks) &&
-      !element.parentElement?.closest(".projects-more"),
-    );
-    const animations = new Map<Element, Animation>();
-    const observer = new IntersectionObserver(entries => {
-      let order = 0;
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const animation = animations.get(entry.target);
-        if (animation) {
-          // Keep stagger short, even when many elements enter on a large screen.
-          animation.effect?.updateTiming({ delay: Math.min(order++, 3) * 70 });
-          animation.play();
-        }
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0, rootMargin: "0px 0px -5% 0px" });
-
-    targets.forEach(element => {
-      // Already passed content stays visible when browser history restores scroll.
-      if (element.getBoundingClientRect().bottom <= 0) return;
-      const animation = element.animate([
-        { opacity: 0, translate: "0 16px" },
-        { opacity: 1, translate: "0 0" },
-      ], { duration: 620, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
-      animation.pause();
-      animations.set(element, animation);
-      animation.onfinish = () => { animation.cancel(); animations.delete(element); };
-      observer.observe(element);
+    const targets = [...root.querySelectorAll<HTMLElement>(`${blocks}, h1, h2, h3, p, .projects-more, .about-signature, .cta-inner strong, .cta-button`) ].filter(el =>
+      !el.matches(".rb-scroll-title, .hero-editorial h1") && !el.parentElement?.closest(`${blocks}, .projects-more`));
+    const cleanups: (() => void)[] = [];
+    const reveals = new Map<HTMLElement, () => void>();
+    targets.forEach(el => {
+      if (el.getBoundingClientRect().bottom <= 0) return;
+      const original = { opacity: el.style.opacity, transform: el.style.transform };
+      el.style.opacity = "0";
+      el.style.transform = "translateY(48px)";
+      let playback: ReturnType<typeof animate> | undefined;
+      const restore = () => { playback?.stop(); el.style.opacity = original.opacity; el.style.transform = original.transform; };
+      const stop = inView(el, () => {
+        const siblings = el.parentElement ? [...el.parentElement.children].filter(child => targets.includes(child as HTMLElement)) : [];
+        playback = animate(el, { opacity: 1, y: 0 }, { duration: .85, delay: Math.min(Math.max(siblings.indexOf(el), 0), 3) * .12, ease: [.22, 1, .36, 1] });
+        playback.then(() => { restore(); reveals.delete(el); });
+      }, { margin: "0px 0px -7% 0px" });
+      reveals.set(el, () => { stop(); restore(); });
+      cleanups.push(() => { stop(); restore(); });
     });
-
-    // Keyboard navigation should never focus an invisible card or link.
-    const onFocus = (event: Event) => {
+    const focus = (event: Event) => {
       if (!(event.target instanceof Node)) return;
-      const focused = event.target;
-      animations.forEach((animation, element) => {
-        if (element.contains(focused)) {
-          animation.cancel();
-          animations.delete(element);
-          observer.unobserve(element);
-        }
-      });
+      const target = event.target;
+      reveals.forEach((reveal, el) => { if (el.contains(target)) { reveal(); reveals.delete(el); } });
     };
-    root.addEventListener("focusin", onFocus);
-    const stop = () => {
-      observer.disconnect();
-      animations.forEach(animation => animation.cancel());
-      animations.clear();
-    };
-    const onPreference = () => { if (preference.matches) stop(); };
-    preference.addEventListener("change", onPreference);
-    return () => {
-      stop();
-      root.removeEventListener("focusin", onFocus);
-      preference.removeEventListener("change", onPreference);
-    };
-  }, [pathname]);
+    root.addEventListener("focusin", focus);
+    return () => { cleanups.forEach(cleanup => cleanup()); root.removeEventListener("focusin", focus); };
+  }, [pathname, reduced]);
 }
