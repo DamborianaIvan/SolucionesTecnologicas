@@ -3,7 +3,7 @@ import RevealTitle from "../components/RevealTitle";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Film, Layers3, Maximize2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Film, Maximize2 } from "lucide-react";
 import { projects, type Project } from "../data/projects";
 import CTA from "../components/CTA";
 import "../styles/project-detail.css";
@@ -95,9 +95,8 @@ export default function ProjectDetailPage() {
   }
 
   const detailSections = [
-    ["problema", "El problema", project.problem],
-    ["solucion", "La solución", project.solution],
-    ["funcionamiento", "Cómo funciona", project.operation],
+    ["problema", "Qué necesitaba resolver", project.problem],
+    ["solucion", "Qué solución desarrollamos", project.solution],
   ] as const;
 
   return (
@@ -109,7 +108,7 @@ export default function ProjectDetailPage() {
             Todos los proyectos
           </Link>
           <p className="eyebrow">
-            WUIDEVS / {project.type === "project" ? "PROYECTO INTERNO" : "WEB APP"}
+            WUIDEVS / PROYECTO
           </p>
           <RevealTitle as="h1">{project.title}</RevealTitle>
           <p>{project.description}</p>
@@ -128,72 +127,29 @@ export default function ProjectDetailPage() {
           <aside>
             <p className="eyebrow">EL PROYECTO</p>
             <a href="#galeria">Galería</a>
-            <a href="#problema">El problema</a>
-            <a href="#solucion">La solución</a>
-            <a href="#funcionamiento">Cómo funciona</a>
-            {project.architecture?.length ? <a href="#arquitectura">Arquitectura</a> : null}
-            <a href="#funcionalidades">Funcionalidades</a>
-            <a href="#tecnologias">Tecnologías</a>
+            {project.problem && <a href="#problema">La necesidad</a>}
+            {project.solution && <a href="#solucion">La solución</a>}
+            <a href="#funcionalidades">Qué permite hacer</a>
           </aside>
 
           <div>
-            {detailSections.map(([id, title, body]) => (
+            {detailSections.filter(([, , body]) => body).map(([id, title, body]) => (
               <section id={id} key={id} className="detail-section">
                 <RevealTitle>{title}</RevealTitle>
-                <p className={body ? "" : "placeholder"}>
-                  {body || "Información pendiente de incorporar."}
-                </p>
+                <p>{body}</p>
               </section>
             ))}
 
-            {project.architecture?.length ? (
-              <section id="arquitectura" className="detail-section">
-                <div className="detail-section-heading">
-                  <Layers3 size={22} />
-                  <h2>Arquitectura</h2>
-                </div>
-                <div className="architecture-grid">
-                  {project.architecture.map((layer) => (
-                    <article className="architecture-card" key={layer.layer}>
-                      <p className="eyebrow">CAPA</p>
-                      <h3>{layer.layer}</h3>
-                      <div className="tags">
-                        {layer.items.map((item) => (
-                          <span key={item}>{item}</span>
-                        ))}
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
             <section id="funcionalidades" className="detail-section">
-              <h2>Funcionalidades</h2>
+              <RevealTitle>Qué permite hacer</RevealTitle>
+              {project.operation && <p>{project.operation}</p>}
               {project.features?.length ? (
                 <ul>
                   {project.features.map((feature) => (
                     <li key={feature}>{feature}</li>
                   ))}
                 </ul>
-              ) : (
-                <p className="placeholder">Características pendientes de incorporar.</p>
-              )}
-            </section>
-
-            <section id="tecnologias" className="detail-section">
-              <h2>Tecnologías</h2>
-              {project.technologies?.length ? (
-                <ul>
-                  {project.technologies.map((technology) => (
-                    <li key={technology}>{technology}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="placeholder">
-                  Las tecnologías y especificaciones técnicas se publicarán cuando estén confirmadas.
-                </p>
-              )}
+              ) : null}
             </section>
 
             {project.relatedProject ? (
@@ -208,10 +164,9 @@ export default function ProjectDetailPage() {
               </section>
             ) : null}
 
-            <section className="detail-section">
-              <h2>Links</h2>
-              {project.links?.length ? (
-                <div className="detail-links">
+            {project.links?.length ? <section className="detail-section">
+              <h2>Conocé la aplicación</h2>
+              <div className="detail-links">
                   {project.links.map((link) => {
                     const isInternal = link.href.startsWith("/");
 
@@ -233,11 +188,9 @@ export default function ProjectDetailPage() {
                       </a>
                     );
                   })}
-                </div>
-              ) : (
-                <p className="placeholder">Enlaces del proyecto pendientes de incorporar.</p>
-              )}
-            </section>
+              </div>
+            </section> : null}
+            {project.credits && <p className="muted">{project.credits}</p>}
           </div>
         </div>
       </div>

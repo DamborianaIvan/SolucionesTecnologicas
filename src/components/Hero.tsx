@@ -27,7 +27,7 @@ export default function Hero() {
             <div className="service-actions"><ContactAction service="sistemas" location="hero">Consultar por un sistema <ArrowUpRight size={20} /></ContactAction><ContactAction service="pc" location="hero">Consultar por mi PC</ContactAction></div>
           </div>
         </div>
-        <div className="hero-bottom"><span>SOFTWARE / HARDWARE / IOT</span><a href="#manifiesto">Seguí explorando <ArrowDown size={16} /></a></div>
+        <div className="hero-bottom"><span>SISTEMAS A MEDIDA / MANTENIMIENTO DE PC / AUTOMATIZACIÓN</span><a href="#manifiesto">Seguí explorando <ArrowDown size={16} /></a></div>
       </div>
     </section>
   );

@@ -7,7 +7,7 @@ export default function CTA() {
         <div>
           <p className="eyebrow">HABLEMOS DE LO QUE NECESITÁS RESOLVER</p>
           <RevealTitle>Tu negocio. Tu sistema.</RevealTitle>
-          <p>Contanos qué proceso querés organizar o automatizar.<br />¿Tu PC necesita atención? También podemos ayudarte con software y hardware en Balcarce.</p>
+          <p>Contanos qué proceso querés organizar o automatizar.<br />¿Tu PC necesita atención? También podemos revisar y mantener tu computadora en Balcarce.</p>
           <strong>Coordinamos el próximo paso con vos.</strong>
         </div>
         <div className="service-actions">
