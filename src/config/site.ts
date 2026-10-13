@@ -12,7 +12,7 @@ export const site: {
   aboutPhoto: string | null;
 } = {
   name: "Wuidevs — Soluciones Tecnológicas",
-  description: "Informática, desarrollo e IoT para resolver problemas reales.",
+  description: "Sistemas a medida, mantenimiento de PC y automatización para resolver necesidades reales.",
   email: null, // PENDIENTE: correo oficial
   whatsapp: /^\d{8,15}$/.test(whatsappNumber) ? whatsappNumber : null, // Número oficial confirmado
   socials: { Instagram: "https://www.instagram.com/wuidevs.stecnologicas/" },
